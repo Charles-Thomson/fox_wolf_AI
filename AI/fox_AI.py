@@ -33,19 +33,28 @@ def fox_detect_in_range(alive_fox_locations,alive_wolf_locations,built_canvas, n
         determine_bad_moves(wolfs_in_range,built_canvas,fox,node_size)
 
 def determine_bad_moves(wolfs_in_range,built_canvas,fox,node_size):
-    bad_moves = ""
+    negtive_move_data = ""
+    positive_move_data = ""
     fox_x, fox_y = convert_to_short_coords(fox,built_canvas, node_size )
     
-    ref_for_bad_moves = moves.get_moves(fox_x,fox_y)
+    ref_for_moves = moves.get_bad_moves(fox_x,fox_y)
 
     for wolf in wolfs_in_range:
         wolf_x, wolf_y = convert_to_short_coords(wolf, built_canvas, node_size )
         wolf_short_coords = (wolf_x, wolf_y)
 
-        bad_moves += (list(ref_for_bad_moves.keys())[list(ref_for_bad_moves.values()).index(wolf_short_coords)])
+        # move_data coming from list of moves with positive/negitive result
+        move_data = (list(ref_for_moves.keys())[list(ref_for_moves.values()).index(wolf_short_coords)])
+        split_move_data = move_data.split("-")
+        positive_move_data += split_move_data[0]
+        negtive_move_data += split_move_data[1]
 
-    not_useable_moves = " ".join(set(bad_moves))
+    not_useable_moves = " ".join(set(negtive_move_data))
+    usable_moves = "".join(positive_move_data)
+
     print("not usable moves", not_useable_moves)
+    print("usable moves", usable_moves)
+
     
 def convert_to_short_coords(animal,built_canvas, node_size):
     x1,y1,x2,y2 = built_canvas.coords(animal)
