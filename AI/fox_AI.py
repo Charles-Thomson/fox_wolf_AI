@@ -11,7 +11,8 @@ def move_fox_up(fox,built_canvas):
     built_canvas.move(fox, 0, - 20 )
 
 
-    # This shows that we can pull fox from list , get its coords and move it and it will save it back into the array     
+
+# break down the list of wolfs to only give those in 2 node range of the fox      
 def fox_detect_in_range(alive_fox_locations,alive_wolf_locations,built_canvas, node_size):
         # currently only using one fox
         fox = alive_fox_locations[0]
@@ -29,51 +30,22 @@ def fox_detect_in_range(alive_fox_locations,alive_wolf_locations,built_canvas, n
                 wolfs_in_range.add(wolf)
         
         print("wolfs in range",wolfs_in_range)
-        determine_move_priority(wolfs_in_range,built_canvas,fox,node_size)
+        determine_bad_moves(wolfs_in_range,built_canvas,fox,node_size)
 
-def determine_move_priority(wolfs_in_range,built_canvas,fox,node_size):
-    possible_moves = []
-    
+def determine_bad_moves(wolfs_in_range,built_canvas,fox,node_size):
+    bad_moves = ""
     fox_x, fox_y = convert_to_short_coords(fox,built_canvas, node_size )
     
-    # All fox move prioritys
-    move_prioritys = moves.get_moves(fox_x,fox_y)
+    ref_for_bad_moves = moves.get_moves(fox_x,fox_y)
 
     for wolf in wolfs_in_range:
         wolf_x, wolf_y = convert_to_short_coords(wolf, built_canvas, node_size )
         wolf_short_coords = (wolf_x, wolf_y)
-        print("wolf coords: ",wolf_short_coords,"Fox coords: ",fox_x,fox_y )
 
-        # this works
-        move = (list(move_prioritys.keys())[list(move_prioritys.values()).index(wolf_short_coords)])
-        possible_moves.append(move)
+        bad_moves += (list(ref_for_bad_moves.keys())[list(ref_for_bad_moves.values()).index(wolf_short_coords)])
 
-    print(possible_moves)
-    
-            
-        
-#    for wolf in wolfs_in_range:
-#        wolf_x1,wolf_y1,wolf_x2,wolf_y2 = built_canvas.coords(wolf)
-#
-#        # Prioritty 1 - Wolf is one move away from fox
-#        
-#        # One node right
-#        if (wolf_x1 == fox_x1 + 20) and (wolf_y1 == fox_y1):
-#            possible_moves.append("R1")
-#
-#        # One node left
-#        if (wolf_x1 == fox_x1 - 20) and (wolf_y1 == fox_y1):
-#            possible_moves.append("L1")
-#
-#        # One node down
-#        if (wolf_x1 == fox_x1) and (wolf_y1 == fox_y1 + 20):
-#            possible_moves.append("D1")
-#
-#        # One node up
-#        if (wolf_x1 == fox_x1) and (wolf_y1 == fox_y1 - 20):
-#            possible_moves.append("U1")
-#
-# Prioritty 2 - Wolf is two move(s) away from fox
+    not_useable_moves = " ".join(set(bad_moves))
+    print("not usable moves", not_useable_moves)
     
 def convert_to_short_coords(animal,built_canvas, node_size):
     x1,y1,x2,y2 = built_canvas.coords(animal)

@@ -30,24 +30,18 @@ class main(tk.Frame):
 
         self.built_canvas.after(5000, self.start_game )
 
-    def test_move_method(self):
-        fox_AI.move_fox_up(self.fox, self.built_canvas)
-        #self.built_canvas.move(self.fox , 0 , -20)
-        print("fox moved")
-
-        self.built_canvas.after(5000, self.test_move_method)
-
-
         # Do next 
-        #         - Find the ighest priority move 
+        #         - Find the highest priority move 
         #        
-        #         - implement move of fox
+        #         - implement move of fox#
+
+        # changes made to possible moves
+        # may change to add the coords around each wolf as the bad move !! <-- this -- for each wolf in rane add the nodes around it as none moves !!! 
 
         # fox_sight_range_detection - woring from the two points , may change to short coords to make better 
 
-    
-        # objects 
-        # Make the wolf/fox as objects - AI's don't need to be ?
+        # start looking at reverse A* 
+
 
         
 
