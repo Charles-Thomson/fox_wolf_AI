@@ -26,17 +26,15 @@ class main(tk.Frame):
     # change to run game ? - this will be the main loop 
     def start_game(self):
         fox_AI.fox_detect_in_range(self.alive_fox_locations,self.alive_wolf_locations,self.built_canvas,self.node_size)
-        fox_AI.choose_move(self.fox, self.built_canvas)
+        #fox_AI.choose_move(self.fox, self.built_canvas)
 
         self.built_canvas.after(5000, self.start_game )
 
         # Do next 
-        #         - Find the highest priority move 
-        #        
-        #         - implement move of fox#
+        #         - working on move fox 
+        #        - may need to change AI to class to save "last_move" when no best move
+        #         - next_move when no best move should be the best move from the last move
 
-        # changes made to possible moves
-        # may change to add the coords around each wolf as the bad move !! <-- this -- for each wolf in rane add the nodes around it as none moves !!! 
 
         # fox_sight_range_detection - woring from the two points , may change to short coords to make better 
 

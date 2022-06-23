@@ -1,14 +1,38 @@
 from AI import moves
+import collections
 import tkinter as tk
 from tkinter import *
 
-def choose_move(fox, built_canvas):
-    move_fox_up(fox, built_canvas)
+def choose_move(fox, built_canvas,best_move,not_useable_moves):
+    if best_move not in not_useable_moves:
+        next_move = best_move
+        last_move= next_move 
+    else:
+        # need to implement
+        print("find new move")
 
-
+    match next_move:
+        case "1": move_fox(fox,built_canvas,-20,-20)
+        case "2": move_fox(fox,built_canvas, 0, -20)
+        case "3": move_fox(fox,built_canvas, 20,-20)
+        case "4": move_fox(fox,built_canvas,-20, 0)
+        case "5": move_fox(fox,built_canvas, 20, 0)
+        case "6": move_fox(fox,built_canvas,-20, 20)
+        case "7": move_fox(fox,built_canvas, 0 , 20)
+        case "8": move_fox(fox,built_canvas, 20, 20)
+        case _: print("no best next move")
+    
 def move_fox_up(fox,built_canvas):
-    print("move up")
-    built_canvas.move(fox, 0, - 20 )
+    print("move top left")
+    built_canvas.move(fox, -20, - 20 )
+
+def move_fox_left(fox,built_canvas):
+    print("move center left")
+    built_canvas.move(fox, -20, 0 )
+
+def move_fox(fox,built_canvas, new_x, new_y):
+    print("moving fox")
+    built_canvas.move(fox, new_x, new_y)
 
 
 
@@ -30,39 +54,46 @@ def fox_detect_in_range(alive_fox_locations,alive_wolf_locations,built_canvas, n
                 wolfs_in_range.add(wolf)
         
         print("wolfs in range",wolfs_in_range)
-        determine_bad_moves(wolfs_in_range,built_canvas,fox,node_size)
+        determine_best_and_unusable_moves(wolfs_in_range,built_canvas,fox,node_size)
 
-def determine_bad_moves(wolfs_in_range,built_canvas,fox,node_size):
+def determine_best_and_unusable_moves(wolfs_in_range,built_canvas,fox,node_size):
     negtive_move_data = ""
     positive_move_data = ""
-    fox_x, fox_y = convert_to_short_coords(fox,built_canvas, node_size )
+    fox_short_coords = convert_to_short_coords(fox,built_canvas, node_size )
     
-    ref_for_moves = moves.get_bad_moves(fox_x,fox_y)
+    ref_for_moves = moves.get_bad_moves(fox_short_coords)
 
     for wolf in wolfs_in_range:
-        wolf_x, wolf_y = convert_to_short_coords(wolf, built_canvas, node_size )
-        wolf_short_coords = (wolf_x, wolf_y)
-
-        # move_data coming from list of moves with positive/negitive result
+        wolf_short_coords = convert_to_short_coords(wolf, built_canvas, node_size )
+        
         move_data = (list(ref_for_moves.keys())[list(ref_for_moves.values()).index(wolf_short_coords)])
         split_move_data = move_data.split("-")
         positive_move_data += split_move_data[0]
         negtive_move_data += split_move_data[1]
 
-    not_useable_moves = " ".join(set(negtive_move_data))
-    usable_moves = "".join(positive_move_data)
+    if positive_move_data == "":
+        best_move = ""
+        print("no best move")
+    else:
+        best_move = find_best_move(list(positive_move_data))
 
-    print("not usable moves", not_useable_moves)
-    print("usable moves", usable_moves)
-
+    not_useable_moves = set(negtive_move_data)
     
+    print("BM:", best_move)
+
+    choose_move(fox, built_canvas,best_move,not_useable_moves)
+
+def find_best_move(best_moves):
+        return collections.Counter(best_moves).most_common(1)[0][0]
+
+         
 def convert_to_short_coords(animal,built_canvas, node_size):
     x1,y1,x2,y2 = built_canvas.coords(animal)
 
     x = (x1 / node_size)
     y = (y1 / node_size)
 
-    return x,y 
+    return (x,y) 
 
 
 
