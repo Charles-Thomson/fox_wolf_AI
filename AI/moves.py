@@ -12,9 +12,9 @@ def get_bad_moves(fox_short_coords):
     # format: best resulting move - ruled out moves 
     # 4 closest nodes 
     "4-358 ": (fox_x + 1, fox_y),
-    "5-146": (fox_x - 1 , fox_y),
-    "2-678 ": (fox_x , fox_y + 1), 
-    "7-123 ": (fox_x , fox_y - 1),
+    "5-146 ": (fox_x - 1 , fox_y),
+    "2-678  ": (fox_x , fox_y + 1), 
+    "7-123  ": (fox_x , fox_y - 1),
 
     # 4 corner nodes inner set
     "1-578": (fox_x + 1 , fox_y + 1),
@@ -36,7 +36,7 @@ def get_bad_moves(fox_short_coords):
     "8-14": (fox_x - 2 , fox_y - 1 ),
    
     "3-67": ( fox_x - 1 , fox_y + 2),
-    "1-87": ( fox_x + 1, fox_y + 2),
+    "1-87 ": ( fox_x + 1, fox_y + 2),
 
     "6-23": ( fox_x + 1 , fox_y - 2 ),
     "8-12": ( fox_x - 1, fox_y - 2 ),  
