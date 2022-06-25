@@ -1,28 +1,21 @@
 import tkinter as tk
 from tkinter import *
 
+from AI import AI_supporting_methods
+
 class wolf_AI():
-    def __init__(self, board_canvas,alive_wolf_locations, alive_fox_locations):
+    def __init__(self, board_canvas,alive_wolf_locations, alive_fox_locations,node_size):
         self.built_canvas = board_canvas
         self.alive_wolf_locations = alive_wolf_locations
         self.alive_fox_locations = alive_fox_locations 
+        self.node_size = node_size
 
-    def detect_foxs_in_range(self):
+    def detect_wolfs_in_range_of_fox(self):
         fox = self.alive_fox_locations[0]
         foxs_in_range = set()
+        wolfs_in_range_of_fox = AI_supporting_methods.detect_animals_in_range(fox,self.wolf_alive_locations,self.built_canvas, self.node_size)
 
-        fox_x1,fox_y1,fox_x2,fox_y2 = self.built_canvas.coords(fox)
-
-        for wolf in self.alive_wolf_locations:
-            wolf_x1,wolf_y1,wolf_x2,wolf_y2 = self.built_canvas.coords(wolf)
-
-            if fox_x1 in range(int(wolf_x1 - 60), int(wolf_x1 + 60) and wolf_y1 in range(int(fox_y1 - 60), int(fox_y1 + 60))):
-                foxs_in_range.add(fox)
-
-            if fox_x2 in range(int(wolf_x2 - 60),int(wolf_x2 + 60)and fox_y2 in range(int(wolf_y2 - 60), int(wolf_y2 + 60))):
-                foxs_in_range.add(fox)
-
-        print("foxs in range of wolf", foxs_in_range)
+        print("foxs in range of wolf", wolfs_in_range_of_fox)
 
         
 
