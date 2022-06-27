@@ -12,7 +12,7 @@ def detect_animals_in_range(main_animal, other_animals, built_canvas, node_size)
         other_animal_coord_x = other_animal_coords[0]
         other_animal_coord_y = other_animal_coords[1]
 
-        if main_animal_coord_x in range(int(other_animal_coord_x - 3), int(other_animal_coord_x + 3)) and main_animal_coord_y in range(int(other_animal_coord_y - 3), int(other_animal_coord_y + 3)):
+        if main_animal_coord_x in range(int(other_animal_coord_x - 2), int(other_animal_coord_x + 2)) and main_animal_coord_y in range(int(other_animal_coord_y - 2), int(other_animal_coord_y + 2)):
                 animals_in_range.add(other_animal)
 
     return animals_in_range

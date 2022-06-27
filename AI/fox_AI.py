@@ -24,7 +24,7 @@ def choose_move(fox, built_canvas,best_move,not_useable_moves):
         case _: print("no best next move")
 
 def move_fox(fox,built_canvas, new_x, new_y):
-    print("moving fox")
+    print("moving fox",new_x, new_y)
     built_canvas.move(fox, new_x, new_y)
 
 # break down the list of wolfs to only give those in 2 node range of the fox      

@@ -23,7 +23,7 @@ class wolf_AI():
     def move_wolf(self,wolf,new_wolf_coord_x,new_wolf_coord_y):
         #print("moving wolf - {wolf}")
         self.built_canvas.move(wolf,new_wolf_coord_x,new_wolf_coord_y)
-        #print("moveing wolf by",new_wolf_coord_x,new_wolf_coord_y)
+        print("moveing wolf by",new_wolf_coord_x,new_wolf_coord_y)
 
     # Basic functunality currently
     def determine_best_move(self, wolfs_with_fox_in_range, fox):

@@ -1,4 +1,5 @@
 import setup as st
+import time
 from AI import fox_AI as fox_AI 
 from AI import wolf_AI as wolf_AI
 
@@ -23,6 +24,7 @@ class main():
     
     # change to run game ? - this will be the main loop 
     def start_game(self):
+        
         fox_AI.detect_wolfs_in_range_of_fox(self.alive_fox_locations,self.alive_wolf_locations,self.built_canvas,self.node_size)
         wolf_AI_object = wolf_AI.wolf_AI(self.built_canvas,self.alive_wolf_locations,self.alive_fox_locations, self.node_size)
         wolf_AI_object.detect_foxs_in_range_of_wolf()
@@ -33,6 +35,7 @@ class main():
 
 
         # Do next  
+        #         - rethink the fox move 
         #         - wolfs can now move 
         #         - put the fox and wolf elements into seperate threads 
         #         - Bug with fox movement still - might be time to redesign
@@ -44,7 +47,7 @@ class main():
 
 
 
-        # fox_sight_range_detection - woring from the two points , may change to short coords to make better 
+       
 
         # start looking at reverse A* 
 
