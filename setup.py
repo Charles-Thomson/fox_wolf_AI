@@ -17,7 +17,7 @@ def set_up(parent,node_size,board_height,board_width):
 
 def populate_board_with_fox(built_canvas,node_size,alive_fox_locations):
         
-        alive_fox = draw_fox_at_start_location(3,3,node_size,built_canvas)
+        alive_fox = draw_fox_at_start_location(6,6,node_size,built_canvas)
         alive_fox_locations.append(alive_fox)
 
         
@@ -25,13 +25,13 @@ def populate_board_with_fox(built_canvas,node_size,alive_fox_locations):
         
 def populate_board_with_wolf(built_canvas,node_size,alive_wolf_locations):
         #wolf_object = wolf_AI.wolf_AI(built_canvas)
-        alive_wolf = draw_wolf_at_start_location(4,3,node_size,built_canvas)
-        alive_wolf_locations.append(alive_wolf)
-
         alive_wolf = draw_wolf_at_start_location(4,4,node_size,built_canvas)
         alive_wolf_locations.append(alive_wolf)
 
-        alive_wolf = draw_wolf_at_start_location(3,5,node_size,built_canvas)
+        alive_wolf = draw_wolf_at_start_location(5,4,node_size,built_canvas)
+        alive_wolf_locations.append(alive_wolf)
+
+        alive_wolf = draw_wolf_at_start_location(4,5,node_size,built_canvas)
         alive_wolf_locations.append(alive_wolf)
 
         alive_wolf = draw_wolf_at_start_location(5,3,node_size,built_canvas)

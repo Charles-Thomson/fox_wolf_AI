@@ -44,8 +44,8 @@ def determine_best_and_unusable_moves(wolfs_in_range,built_canvas,fox,node_size)
 
     for wolf in wolfs_in_range:
         wolf_short_coords = AI_supporting_methods.convert_to_short_coords(wolf, built_canvas, node_size )
+        print("Fox coords",fox_short_coords,"Wolf coords",wolf_short_coords)
         
-        print("Fox coords",fox_short_coords,"wolf coords",wolf_short_coords )
         move_data = (list(ref_for_moves.keys())[list(ref_for_moves.values()).index(wolf_short_coords)])
         split_move_data = move_data.split("-")
         positive_move_data += split_move_data[0]
@@ -61,7 +61,7 @@ def determine_best_and_unusable_moves(wolfs_in_range,built_canvas,fox,node_size)
     choose_move(fox, built_canvas,best_move,not_useable_moves)
 
 def find_best_move(best_moves):
-        return collections.Counter(best_moves).most_common(1)[0][0]
+    return collections.Counter(best_moves).most_common(1)[0][0]
 
          
 

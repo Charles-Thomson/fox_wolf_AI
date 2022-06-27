@@ -1,13 +1,12 @@
-
 import setup as st
 from AI import fox_AI as fox_AI 
 from AI import wolf_AI as wolf_AI
 
 import tkinter as tk
 from tkinter import *
-root = Tk()
 
-class main(tk.Frame):
+
+class main():
     def __init__(self,parent,node_size, board_height, board_width):
         self.node_size = node_size
         self.board_height = board_height
@@ -24,20 +23,22 @@ class main(tk.Frame):
     
     # change to run game ? - this will be the main loop 
     def start_game(self):
-        #wolf_AI_object = wolf_AI.wolf_AI(self.built_canvas,self.alive_wolf_locations,self.alive_fox_locations, self.node_size)
-        #wolf_AI_object.detect_foxs_in_range()
         fox_AI.detect_wolfs_in_range_of_fox(self.alive_fox_locations,self.alive_wolf_locations,self.built_canvas,self.node_size)
-        #self.built_canvas.after(5000, self.start_game )
+        wolf_AI_object = wolf_AI.wolf_AI(self.built_canvas,self.alive_wolf_locations,self.alive_fox_locations, self.node_size)
+        wolf_AI_object.detect_foxs_in_range_of_wolf()
+        #fox_AI.detect_wolfs_in_range_of_fox(self.alive_fox_locations,self.alive_wolf_locations,self.built_canvas,self.node_size)
+        self.built_canvas.after(5000, self.start_game)
 
 
 
 
-        # Do next 
-        #         - refactoring detect method into own file along with short_coords 
-        #         - detect method now using short coords 
-        #         - Next: Wolf movement towards the fox
-        #         - Detect in range for wolf and fox give the same data 
-        #         - Move the wolf towards the location of the fox based on location of fox
+        # Do next  
+        #         - wolfs can now move 
+        #         - put the fox and wolf elements into seperate threads 
+        #         - Bug with fox movement still - might be time to redesign
+        #         - need collision - sides and other animals
+        #         - need finish (kill of fox)
+        #
 
         #         - refactor detect method to use range - not hard coded - to allow for different sight ranges 
 

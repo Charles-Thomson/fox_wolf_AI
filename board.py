@@ -2,12 +2,12 @@ from platform import node
 import tkinter as tk
 from tkinter import *
 
-class board(tk.Frame):
-    def __init__(self,parent,node_size,board_height,board_width):
+class board():
+    def __init__(self,root,node_size,board_height,board_width):
         self.node_size = node_size
         self.board_height = board_height
         self.board_width = board_width
-        self.root = Tk()
+        self.root = root
         
 
     def build_canvas(self,root,board_height,board_width,node_size):
