@@ -1,5 +1,5 @@
 from AI import moves
-from AI import AI_supporting_methods
+from . import AISupportingMethods
 import collections
 import tkinter as tk
 from tkinter import *
@@ -31,18 +31,17 @@ def move_fox(fox,built_canvas, new_x, new_y):
 def detect_wolfs_in_range_of_fox(alive_fox_locations,alive_wolf_locations,built_canvas, node_size):
         # currently only using one fox
         fox = alive_fox_locations[0]
-        wolfs_in_range_of_fox = AI_supporting_methods.detect_animals_in_range(fox, alive_wolf_locations,built_canvas, node_size, sight_range = 2)
-       
+        wolfs_in_range_of_fox = AISupportingMethods.detect_animals_in_range(fox, alive_wolf_locations,built_canvas, node_size, sight_range = 2)
         determine_best_and_unusable_moves(wolfs_in_range_of_fox,built_canvas,fox,node_size)
 
 def determine_best_and_unusable_moves(wolfs_in_range,built_canvas,fox,node_size):
     negtive_move_data = ""
     positive_move_data = ""
-    fox_short_coords = AI_supporting_methods.convert_to_short_coords(fox,built_canvas, node_size )
+    fox_short_coords = AISupportingMethods.convert_to_short_coords(fox,built_canvas, node_size )
     ref_for_moves = moves.get_bad_moves(fox_short_coords)
 
     for wolf in wolfs_in_range:
-        wolf_short_coords = AI_supporting_methods.convert_to_short_coords(wolf, built_canvas, node_size )
+        wolf_short_coords = AISupportingMethods.convert_to_short_coords(wolf, built_canvas, node_size )
         print("Fox coords",fox_short_coords,"Wolf coords",wolf_short_coords)
         
         move_data = (list(ref_for_moves.keys())[list(ref_for_moves.values()).index(wolf_short_coords)])

@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import *
 
-from AI import AI_supporting_methods
+from . import AISupportingMethods
 
 class wolf_AI():
     def __init__(self, board_canvas,alive_wolf_locations, alive_fox_locations,node_size):
@@ -15,7 +15,7 @@ class wolf_AI():
         fox = self.alive_fox_locations[0]
         wolfs_with_fox_in_range = set()
         for wolf in self.alive_wolf_locations:
-            foxs_in_range = AI_supporting_methods.detect_animals_in_range(wolf,self.alive_fox_locations,self.built_canvas, self.node_size, sight_range = 4)
+            foxs_in_range = AISupportingMethods.detect_animals_in_range(wolf,self.alive_fox_locations,self.built_canvas, self.node_size, sight_range = 4)
             if foxs_in_range: wolfs_with_fox_in_range.add(wolf)
 
         self.determine_best_move(wolfs_with_fox_in_range,fox)
@@ -32,10 +32,10 @@ class wolf_AI():
 
     # Basic functunality currently
     def determine_best_move(self, wolfs_with_fox_in_range, fox):
-        fox_coord_x, fox_coord_y = AI_supporting_methods.convert_to_short_coords(fox,self.built_canvas,self.node_size)
+        fox_coord_x, fox_coord_y = AISupportingMethods.convert_to_short_coords(fox,self.built_canvas,self.node_size)
        
         for wolf in wolfs_with_fox_in_range:
-            wolf_coord_x, wolf_coord_y = AI_supporting_methods.convert_to_short_coords(wolf,self.built_canvas, self.node_size)
+            wolf_coord_x, wolf_coord_y = AISupportingMethods.convert_to_short_coords(wolf,self.built_canvas, self.node_size)
             
             new_wolf_coord_x = 0
             new_wolf_coord_y = 0
