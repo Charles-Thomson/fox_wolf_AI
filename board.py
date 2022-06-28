@@ -37,7 +37,7 @@ class board():
     
     
 
-#if __name__ == "__main__":
-#    root = tk.Tk()
-#    board = board(root)
-#    root.mainloop()
+if __name__ == "__main__":
+    root = tk.Tk()
+    board = board(root)
+    root.mainloop()

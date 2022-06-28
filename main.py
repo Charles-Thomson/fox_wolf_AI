@@ -28,22 +28,18 @@ class main():
         fox_AI.detect_wolfs_in_range_of_fox(self.alive_fox_locations,self.alive_wolf_locations,self.built_canvas,self.node_size)
         wolf_AI_object = wolf_AI.wolf_AI(self.built_canvas,self.alive_wolf_locations,self.alive_fox_locations, self.node_size)
         wolf_AI_object.detect_foxs_in_range_of_wolf()
-        #fox_AI.detect_wolfs_in_range_of_fox(self.alive_fox_locations,self.alive_wolf_locations,self.built_canvas,self.node_size)
+
         self.built_canvas.after(5000, self.start_game)
 
 
 
 
         # Do next  
-        #         - rethink the fox move 
-        #         - wolfs can now move 
-        #         - put the fox and wolf elements into seperate threads 
-        #         - Bug with fox movement still - might be time to redesign
-        #         - need collision - sides and other animals
-        #         - need finish (kill of fox)
-        #
-
-        #         - refactor detect method to use range - not hard coded - to allow for different sight ranges 
+        # next - move over to data classes for both fox and wolf 
+        # currently creating new setup
+        # then - change the move for the fox , add in the sight range element perhaps ?
+        # 
+        #         look at logging instead of print /?
 
 
 

@@ -24,16 +24,15 @@ def choose_move(fox, built_canvas,best_move,not_useable_moves):
         case _: print("no best next move")
 
 def move_fox(fox,built_canvas, new_x, new_y):
-    print("moving fox",new_x, new_y)
+    #print("moving fox",new_x, new_y)
     built_canvas.move(fox, new_x, new_y)
 
-# break down the list of wolfs to only give those in 2 node range of the fox      
+   
 def detect_wolfs_in_range_of_fox(alive_fox_locations,alive_wolf_locations,built_canvas, node_size):
         # currently only using one fox
         fox = alive_fox_locations[0]
-        wolfs_in_range_of_fox = AI_supporting_methods.detect_animals_in_range(fox, alive_wolf_locations, built_canvas, node_size)
-        print("Wolfs in range", wolfs_in_range_of_fox)
-
+        wolfs_in_range_of_fox = AI_supporting_methods.detect_animals_in_range(fox, alive_wolf_locations,built_canvas, node_size, sight_range = 2)
+       
         determine_best_and_unusable_moves(wolfs_in_range_of_fox,built_canvas,fox,node_size)
 
 def determine_best_and_unusable_moves(wolfs_in_range,built_canvas,fox,node_size):
