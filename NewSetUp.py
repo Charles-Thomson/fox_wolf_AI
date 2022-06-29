@@ -26,7 +26,7 @@ def GenerateFoxs() -> list:
     
     fox_A = AnimalDataClass.SpawnNewAnimal(animal_type= "Fox", 
                                          animal_location=(3,6),
-                                         animal_sight_range=2,
+                                         animal_sight_range=4,
                                          animaml_draw_colour = "blue")
     return [fox_A]
 
@@ -51,9 +51,8 @@ def GenerateWolfs() -> list:
 
 def DrawAnimalsOnCanvas(built_canvas, animals) -> None:
     for animal in animals:
-        x1,y1,x2,y2 = AISupportingMethods.ConvertToLongCoords(animal,node_size = 20)
-        #print(x1,y1,x2,y2)
-        logging.debug(x1,y1,x2,y2)
+        coord_x, coord_y = animal.animal_location
+        x1,y1,x2,y2 = AISupportingMethods.ConvertToLongCoords(coord_x, coord_y,node_size = 20)
         animal.animal_ID = built_canvas.create_rectangle(x1,y1,x2,y2, fill=animal.animaml_draw_colour)
     
 

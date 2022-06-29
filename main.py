@@ -19,18 +19,20 @@ class main():
     
     # change to run game ? - this will be the main loop 
     def start_game(self):
-        foxAI.DetectWolfsInRange(self.foxs,self.wolfs)
+        foxAI.MainFoxAI(self.foxs,self.wolfs,self.built_canvas,self.node_size )
         #fox_AI.detect_wolfs_in_range_of_fox(self.alive_fox_locations,self.alive_wolf_locations,self.built_canvas,self.node_size)
         #wolf_AI_object = wolf_AI.wolf_AI(self.built_canvas,self.alive_wolf_locations,self.alive_fox_locations, self.node_size)
         #wolf_AI_object.detect_foxs_in_range_of_wolf()
 
-        #self.built_canvas.after(5000, self.start_game)
+        self.built_canvas.after(5000, self.start_game)
 
 
 
 
         # Do next  
         # fox move implemented - needs testing 
+        # refactor the code to remove all the for loops in the methods - just need one for loop in main and in move
+        # need collision checking on the moves <- next step
         # currently working in new foxAI
         # 
         # 
