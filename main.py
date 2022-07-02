@@ -4,6 +4,7 @@ import time
 from AI import fox_AI as fox_AI 
 from AI import wolf_AI as wolf_AI
 import foxAI as foxAI
+import wolfAI as wolfAI
 
 import tkinter as tk
 from tkinter import *
@@ -15,23 +16,20 @@ class main():
         self.board_height = board_height
         self.board_width = board_width
         self.built_canvas, self.foxs, self.wolfs = setup.main(parent,self.node_size,self.board_height,self.board_width)
-        self.start_game()
+        self.run_game()
     
     # change to run game ? - this will be the main loop 
-    def start_game(self):
+    def run_game(self):
         foxAI.MainFoxAI(self.foxs,self.wolfs,self.built_canvas,self.node_size )
-        #fox_AI.detect_wolfs_in_range_of_fox(self.alive_fox_locations,self.alive_wolf_locations,self.built_canvas,self.node_size)
-        #wolf_AI_object = wolf_AI.wolf_AI(self.built_canvas,self.alive_wolf_locations,self.alive_fox_locations, self.node_size)
-        #wolf_AI_object.detect_foxs_in_range_of_wolf()
+        wolfAI.MainWolfAI(self.wolfs,self.foxs, self.built_canvas, self.node_size)
 
-        self.built_canvas.after(5000, self.start_game)
-
-
-
+        self.built_canvas.after(5000, self.run_game)
 
         # Do next  
-        # fox move implemented - needs testing 
-        # refactor the code to remove all the for loops in the methods - just need one for loop in main and in move
+        #  Implement collision for both animals types -> working through this issue currently 
+        # Add to the data type of next full ocation , then can check if any location to be clashes 
+        #  Detect thod iving all animals not just the opersit - only take in the type maybe to remove seperate wolf and fox list ?
+        # -- this may come as a priority system later
         # need collision checking on the moves <- next step
         # currently working in new foxAI
         # 

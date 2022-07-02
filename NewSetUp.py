@@ -10,6 +10,7 @@ def main(root,node_size,board_height,board_width) -> Canvas:
     built_canvas = build_canvas(root,node_size,board_height,board_width)
     foxs = GenerateFoxs()
     wolfs = GenerateWolfs()
+    
 
     DrawAnimalsOnCanvas(built_canvas, foxs)
     DrawAnimalsOnCanvas(built_canvas, wolfs)
@@ -28,7 +29,12 @@ def GenerateFoxs() -> list:
                                          animal_location=(3,6),
                                          animal_sight_range=4,
                                          animaml_draw_colour = "blue")
-    return [fox_A]
+
+    fox_B = AnimalDataClass.SpawnNewAnimal(animal_type= "Fox", 
+                                         animal_location=(4,3),
+                                         animal_sight_range=4,
+                                         animaml_draw_colour = "blue")
+    return [fox_A,fox_B]
 
 def GenerateWolfs() -> list:
 
