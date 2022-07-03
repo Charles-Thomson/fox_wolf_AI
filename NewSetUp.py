@@ -34,23 +34,23 @@ def GenerateFoxs() -> list:
                                          animal_location=(4,3),
                                          animal_sight_range=4,
                                          animaml_draw_colour = "blue")
-    return [fox_A,fox_B]
+    return [fox_A]
 
 def GenerateWolfs() -> list:
 
     wolf_A = AnimalDataClass.SpawnNewAnimal(animal_type= "Wolf", 
-                                         animal_location=(5,4),
-                                         animal_sight_range=3,
+                                         animal_location=(5,5),
+                                         animal_sight_range=4,
                                          animaml_draw_colour = "red")
 
     wolf_B = AnimalDataClass.SpawnNewAnimal(animal_type= "Wolf", 
-                                         animal_location=(3,4),
-                                         animal_sight_range=3,
+                                         animal_location=(3,15),
+                                         animal_sight_range=4,
                                          animaml_draw_colour = "red")
 
     wolf_C = AnimalDataClass.SpawnNewAnimal(animal_type= "Wolf", 
-                                         animal_location=(1,4),
-                                         animal_sight_range=3,
+                                         animal_location=(1,5),
+                                         animal_sight_range=4,
                                          animaml_draw_colour = "red")
     return [wolf_A,wolf_B,wolf_C]
 
