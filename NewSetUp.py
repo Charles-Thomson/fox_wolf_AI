@@ -1,58 +1,100 @@
 import tkinter as tk
 from tkinter import *
 import AnimalDataClass
-import logging
 from AI import AISupportingMethods
 
 import board
 
-def main(root,node_size,board_height,board_width) -> Canvas:
-    built_canvas = build_canvas(root,node_size,board_height,board_width)
+def main(node_size: int,board_height: int ,board_width: int) -> Canvas:
+    built_canvas = build_canvas(node_size,board_height,board_width)
     foxs = GenerateFoxs()
     wolfs = GenerateWolfs()
     
-
     DrawAnimalsOnCanvas(built_canvas, foxs)
     DrawAnimalsOnCanvas(built_canvas, wolfs)
 
     return built_canvas, foxs , wolfs
 
-
-def build_canvas(parent,node_size,board_height,board_width) -> Canvas:
-    board_canvas = board.board(parent,node_size,board_height, board_width)
-    built_canvas = board_canvas.build_canvas(parent,board_height,board_width,node_size)
+def build_canvas(node_size,board_height,board_width) -> Canvas:
+    board_canvas = board.board(node_size,board_height, board_width)
+    built_canvas = board_canvas.BuildCanvas(board_height,board_width,node_size)
     return built_canvas
 
 def GenerateFoxs() -> list:
     
-    fox_A = AnimalDataClass.SpawnNewAnimal(animal_type= "Fox", 
-                                         animal_location=(3,6),
+    fox_A = AnimalDataClass.SpawnNewAnimal(animal_type= AnimalDataClass.AnimalType.FOX, 
+                                         animal_location=(7,7),
                                          animal_sight_range=4,
                                          animaml_draw_colour = "blue")
 
-    fox_B = AnimalDataClass.SpawnNewAnimal(animal_type= "Fox", 
-                                         animal_location=(4,3),
+    fox_B = AnimalDataClass.SpawnNewAnimal(animal_type= AnimalDataClass.AnimalType.FOX, 
+                                         animal_location=(9,7),
                                          animal_sight_range=4,
                                          animaml_draw_colour = "blue")
-    return [fox_A]
+
+    fox_C = AnimalDataClass.SpawnNewAnimal(animal_type= AnimalDataClass.AnimalType.FOX, 
+                                         animal_location=(11,7),
+                                         animal_sight_range=4,
+                                         animaml_draw_colour = "blue")
+
+    fox_D = AnimalDataClass.SpawnNewAnimal(animal_type= AnimalDataClass.AnimalType.FOX, 
+                                         animal_location=(7,14),
+                                         animal_sight_range=4,
+                                         animaml_draw_colour = "blue")
+
+    fox_E = AnimalDataClass.SpawnNewAnimal(animal_type= AnimalDataClass.AnimalType.FOX, 
+                                         animal_location=(11,14),
+                                         animal_sight_range=4,
+                                         animaml_draw_colour = "blue")
+    return [fox_A,fox_B,fox_C,fox_D,fox_E]
 
 def GenerateWolfs() -> list:
 
-    wolf_A = AnimalDataClass.SpawnNewAnimal(animal_type= "Wolf", 
-                                         animal_location=(5,5),
+    wolf_A = AnimalDataClass.SpawnNewAnimal(animal_type= AnimalDataClass.AnimalType.WOLF, 
+                                         animal_location=(5,6),
                                          animal_sight_range=4,
                                          animaml_draw_colour = "red")
 
-    wolf_B = AnimalDataClass.SpawnNewAnimal(animal_type= "Wolf", 
-                                         animal_location=(3,15),
+    wolf_B = AnimalDataClass.SpawnNewAnimal(animal_type= AnimalDataClass.AnimalType.WOLF, 
+                                         animal_location=(3,6),
                                          animal_sight_range=4,
                                          animaml_draw_colour = "red")
 
-    wolf_C = AnimalDataClass.SpawnNewAnimal(animal_type= "Wolf", 
-                                         animal_location=(1,5),
+    wolf_C = AnimalDataClass.SpawnNewAnimal(animal_type= AnimalDataClass.AnimalType.WOLF, 
+                                         animal_location=(1,6),
                                          animal_sight_range=4,
                                          animaml_draw_colour = "red")
-    return [wolf_A,wolf_B,wolf_C]
+
+    wolf_D = AnimalDataClass.SpawnNewAnimal(animal_type= AnimalDataClass.AnimalType.WOLF, 
+                                         animal_location=(12,6),
+                                         animal_sight_range=4,
+                                         animaml_draw_colour = "red")
+
+    wolf_E = AnimalDataClass.SpawnNewAnimal(animal_type= AnimalDataClass.AnimalType.WOLF, 
+                                         animal_location=(9,9),
+                                         animal_sight_range=4,
+                                         animaml_draw_colour = "red")
+
+    wolf_F = AnimalDataClass.SpawnNewAnimal(animal_type= AnimalDataClass.AnimalType.WOLF, 
+                                         animal_location=(14,4),
+                                         animal_sight_range=4,
+                                         animaml_draw_colour = "red")
+
+    wolf_G = AnimalDataClass.SpawnNewAnimal(animal_type= AnimalDataClass.AnimalType.WOLF, 
+                                         animal_location=(14,14),
+                                         animal_sight_range=4,
+                                         animaml_draw_colour = "red")
+
+    wolf_H = AnimalDataClass.SpawnNewAnimal(animal_type= AnimalDataClass.AnimalType.WOLF, 
+                                         animal_location=(10,10),
+                                         animal_sight_range=4,
+                                         animaml_draw_colour = "red")
+
+    wolf_I = AnimalDataClass.SpawnNewAnimal(animal_type= AnimalDataClass.AnimalType.WOLF, 
+                                         animal_location=(4,16),
+                                         animal_sight_range=4,
+                                         animaml_draw_colour = "red")
+    return [wolf_A,wolf_B,wolf_C,wolf_D,wolf_E,wolf_F,wolf_G,wolf_H,wolf_I]
 
 
 def DrawAnimalsOnCanvas(built_canvas, animals) -> None:

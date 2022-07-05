@@ -4,12 +4,12 @@ import tkinter as tk
 from AI import AISupportingMethods
 import collections 
 
-def MainFoxAI(foxs: list,wolfs: list ,built_canvas: Canvas,node_size: int) -> None:
+def MainFoxAI(foxs: list,wolfs: list ,built_canvas: Canvas,node_size: int,board_rows_and_columns: int) -> None:
     """Main process for the AI - Sets the animals in range, next move and then calls for the movement """
 
     for fox in foxs:
         SetAnimalsInRange(fox,wolfs)
-        fox.animal_next_move = FindNextMove(fox)
+        fox.animal_next_move = FindNextMove(fox,wolfs,board_rows_and_columns)
     MoveFoxs(foxs,built_canvas,node_size)
 
 
@@ -19,8 +19,8 @@ def SetAnimalsInRange(fox: object,wolfs: list) -> None:
 def SetAnimalNextMove(fox: object) -> None:
     fox.animal_next_move = FindNextMove(fox)
 
-def FindNextMove(fox: object ) -> tuple:
-    return DetermineBestMove(DetermineGoodAndBadMoves(fox,fox.animals_in_range))
+def FindNextMove(fox: object,wolfs: list[object],board_rows_and_columns: tuple ) -> tuple:
+    return DetermineBestMove(DetermineGoodAndBadMoves(fox,fox.animals_in_range),fox,wolfs,board_rows_and_columns)
 
 
 def DetermineGoodAndBadMoves(fox: object,other_animal_coords: list) -> list[tuple]:
@@ -67,16 +67,17 @@ def DetermineGoodAndBadMoves(fox: object,other_animal_coords: list) -> list[tupl
 
     return good_move, unusable_moves
 
-def DetermineBestMove(Good_and_bad_moves) -> tuple:
+def DetermineBestMove(Good_and_bad_moves: tuple,fox: object, wolfs: list[object],board_rows_and_columns) -> tuple:
     """Finds 'best' move based on the most common 'good' move - if no most common use the first given 'good' move - else make no move"""
 
     good_moves, bad_moves = Good_and_bad_moves
     possible_best_moves = [move for move in good_moves if move not in list(bad_moves)]
-
     if possible_best_moves:
-        return collections.Counter(possible_best_moves).most_common(1)[0][0] # give most common or first in good list 
-    else:
-        return(0,0) # no move
+        possible_best_move = collections.Counter(possible_best_moves).most_common(1)[0][0] # give most common or first in good list
+        if AISupportingMethods.CheckForCollisions(possible_best_move,fox,wolfs,board_rows_and_columns) == True :
+            return possible_best_move
+    
+    return(0,0) # no move
     
 
 def MoveFoxs(foxs: list,built_canvas: Canvas,node_size: int) -> None:

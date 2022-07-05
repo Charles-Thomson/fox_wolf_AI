@@ -3,15 +3,17 @@ from typing import Collection
 from AI import AISupportingMethods
 from NewSetUp import build_canvas
 from foxAI import DetermineGoodAndBadMoves
+
 import collections
 
 
-def MainWolfAI(wolfs: list, foxs: list, built_canvas: Canvas, node_size: int) -> None:
+
+def MainWolfAI(wolfs: list, foxs: list, built_canvas: Canvas, node_size: int, board_rows_and_columns: tuple) -> None:
     """Main wolf loop"""
     
     for wolf in wolfs:
         SetAnimalsInRange(wolf, foxs)
-        SetAnimalNextMove(wolf,wolfs)
+        SetAnimalNextMove(wolf,wolfs,board_rows_and_columns)
         SetAnimalMovingTo(wolf)
         print(wolf)
         
@@ -21,9 +23,9 @@ def SetAnimalsInRange(wolf: object, foxs: list) -> None:
     """Find & set the animals in range of the wolf"""
     wolf.animals_in_range = AISupportingMethods.DetectAnimalsInRange(wolf, foxs)
     
-def SetAnimalNextMove(wolf: object,wolfs: list) -> None:
+def SetAnimalNextMove(wolf: object,wolfs: list,board_rows_and_columns: tuple) -> None:
     """Find & set the next move of the wolf"""
-    wolf.animal_next_move = FindNextMove(wolf,wolfs)
+    wolf.animal_next_move = FindNextMove(wolf,wolfs,board_rows_and_columns)
 
 def SetAnimalMovingTo(wolf:object) -> None:
     
@@ -36,8 +38,8 @@ def SetAnimalMovingTo(wolf:object) -> None:
     wolf.animal_moving_to = (moving_to_x,moveing_to_y)
 
 
-def FindNextMove(wolf: object,wolfs: list) -> tuple:
-    return FindBestMove(DeterminePossibleMoves(wolf, wolf.animals_in_range),wolf,wolfs)
+def FindNextMove(wolf: object,wolfs: list,board_rows_and_columns: tuple) -> tuple:
+    return FindBestMove(DeterminePossibleMoves(wolf, wolf.animals_in_range),wolf,wolfs,board_rows_and_columns)
 
 def DeterminePossibleMoves(wolf: object, other_animal_coords: list) -> tuple: 
     """Find all the possible 'good' moves based on the locations of animals around the wolf"""
@@ -70,37 +72,17 @@ def DeterminePossibleMoves(wolf: object, other_animal_coords: list) -> tuple:
     return possible_moves
         
 
-# issue in here - check for collision, will need to pass all the defined moves as the new location or cange to assign move -> move over assign all -> move all 
-def FindBestMove(possible_moves: list[tuple],wolf: object ,wolfs: list) -> tuple:
+def FindBestMove(possible_moves: list[tuple],wolf: object ,wolfs: list,board_rows_and_columns: tuple) -> tuple:
     """Find the most common 'good' move from the possible moves - if none then return no move (0,0)"""
     print("Find best called", wolf.animal_ID)
 
     if possible_moves:
         possible_best_move = collections.Counter(possible_moves).most_common(1)[0][0]
-        if CheckMoveForPossibleCollision(possible_best_move,wolf,wolfs) == True:
+        if AISupportingMethods.CheckForCollisions(possible_best_move,wolf,wolfs,board_rows_and_columns):
             return possible_best_move
         
     return (0,0)
     # No move  
-
-
-def CheckMoveForPossibleCollision(best_move: tuple,wolf: object, wolfs: list) -> bool:
-    """Checking for collision with other wolfs currently - based on moving to by adding current to possible next move"""
-
-    best_x, best_y = best_move
-    this_wolf_ID = wolf.animal_ID
-    current_wolf_x, current_wolf_y = wolf.animal_location
-    possible_new_x = current_wolf_x + best_x
-    possible_new_y = current_wolf_y + best_y
-    this_possible_new_wolf_location = (possible_new_x,possible_new_y)
-    
-    # Ceck to see if it will colide with any other wolf moves 
-    for wolf in wolfs:
-        if wolf.animal_moving_to == this_possible_new_wolf_location and wolf.animal_ID != this_wolf_ID:
-            return False
-        else:
-            return True
-
 
 def MoveWolf(wolfs: list[object],built_canvas: Canvas,  node_size: int) -> None:
     """Moving all wolfs to new best"""

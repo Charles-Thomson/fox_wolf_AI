@@ -3,28 +3,27 @@ import tkinter as tk
 from tkinter import *
 
 class board():
-    def __init__(self,root,node_size,board_height,board_width):
+    def __init__(self,node_size: int ,board_height: int ,board_width: int):
         self.node_size = node_size
         self.board_height = board_height
         self.board_width = board_width
-        self.root = root
+        self.number_of_rows, self.number_of_columns = self.SetRowsAndColumns(board_height, board_width,node_size)
         
 
-    def build_canvas(self,root,board_height,board_width,node_size):
-        rows = int(board_height / node_size)
-        columns = int(board_width / node_size)
-        
+    def SetRowsAndColumns(self,board_height: int, board_width: int, node_size: int ) -> None:
+        number_of_rows = int(board_height / node_size)
+        number_of_columns = int(board_width / node_size)
 
-        canvas_width = columns * node_size
-        canvas_height = rows * node_size
+        return number_of_rows,number_of_columns
 
-        board_canvas = Canvas(self.root, width =canvas_width, height = canvas_height, bg = "white")
+    def BuildCanvas(self,board_height: int,board_width: int ,node_size: int) -> Canvas:
+        board_canvas = Canvas(width = board_width, height = board_height, bg = "white")
         board_canvas.pack(pady = 20)
-        drawn_board_canvas = self.draw_canvas_grid(rows,columns,node_size,board_canvas)
+        drawn_board_canvas = self.DrawGrid(self.number_of_rows,self.number_of_columns,node_size,board_canvas)
 
         return drawn_board_canvas
 
-    def draw_canvas_grid(self,rows,columns,node_size,board_canvas):
+    def DrawGrid(self,rows: int,columns: int,node_size: int ,board_canvas: Canvas) -> Canvas:
         for row in range(rows):
             for col in range(columns):
                 x1 = (col * node_size)

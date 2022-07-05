@@ -1,12 +1,17 @@
-from tkinter import *
-from dataclasses import *
+#from tkinter import *
+from dataclasses import dataclass, field
+import enum
 
 # Currently beng used to test data classes
+
+class AnimalType(enum.Enum):
+    FOX = 1
+    WOLF = 2
 
 @dataclass
 class animal:
     animal_ID: int
-    animal_type: str 
+    animal_type: AnimalType 
     animal_location: tuple
     animal_sight_range: int 
     animal_next_move: tuple
@@ -19,7 +24,7 @@ def SpawnNewAnimal(animal_type, animal_location, animal_sight_range,animaml_draw
     return animal(animal_ID = 0, animal_type = animal_type, animal_location=animal_location,animal_next_move = (),animal_moving_to = (), animal_alive = True, animal_sight_range = animal_sight_range,animaml_draw_colour = animaml_draw_colour)
 
 def main() -> None:
-    new_animal = SpawnNewAnimal(animal_type = "Fox",animal_location = (5,5), animal_sight_range = 5)
+    new_animal = SpawnNewAnimal(animal_type = AnimalType.FOX,animal_location = (5,5), animal_sight_range = 5, animaml_draw_colour="red")
     print(new_animal)
     
     
