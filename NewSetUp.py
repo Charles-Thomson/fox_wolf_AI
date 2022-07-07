@@ -46,22 +46,22 @@ def GenerateFoxs() -> list:
                                          animal_location=(11,14),
                                          animal_sight_range=4,
                                          animaml_draw_colour = "blue")
-    return [fox_A,fox_B,fox_C,fox_D,fox_E]
+    return [fox_A]
 
 def GenerateWolfs() -> list:
 
     wolf_A = AnimalDataClass.SpawnNewAnimal(animal_type= AnimalDataClass.AnimalType.WOLF, 
-                                         animal_location=(5,6),
+                                         animal_location=(5,5),
                                          animal_sight_range=4,
                                          animaml_draw_colour = "red")
 
     wolf_B = AnimalDataClass.SpawnNewAnimal(animal_type= AnimalDataClass.AnimalType.WOLF, 
-                                         animal_location=(3,6),
+                                         animal_location=(9,5),
                                          animal_sight_range=4,
                                          animaml_draw_colour = "red")
 
     wolf_C = AnimalDataClass.SpawnNewAnimal(animal_type= AnimalDataClass.AnimalType.WOLF, 
-                                         animal_location=(1,6),
+                                         animal_location=(9,9),
                                          animal_sight_range=4,
                                          animaml_draw_colour = "red")
 
@@ -94,7 +94,7 @@ def GenerateWolfs() -> list:
                                          animal_location=(4,16),
                                          animal_sight_range=4,
                                          animaml_draw_colour = "red")
-    return [wolf_A,wolf_B,wolf_C,wolf_D,wolf_E,wolf_F,wolf_G,wolf_H,wolf_I]
+    return [wolf_A,wolf_B,wolf_C]
 
 
 def DrawAnimalsOnCanvas(built_canvas, animals) -> None:

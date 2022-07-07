@@ -3,7 +3,7 @@ import tkinter as tk
 from tkinter import *
 
 class board():
-    def __init__(self,node_size: int ,board_height: int ,board_width: int):
+    def __init__(self,node_size: int ,board_height: int ,board_width: int) -> None:
         self.node_size = node_size
         self.board_height = board_height
         self.board_width = board_width
@@ -11,12 +11,16 @@ class board():
         
 
     def SetRowsAndColumns(self,board_height: int, board_width: int, node_size: int ) -> None:
+        """Set the number of rows and columns"""
+
         number_of_rows = int(board_height / node_size)
         number_of_columns = int(board_width / node_size)
 
         return number_of_rows,number_of_columns
 
     def BuildCanvas(self,board_height: int,board_width: int ,node_size: int) -> Canvas:
+        """Build the Canvas"""
+
         board_canvas = Canvas(width = board_width, height = board_height, bg = "white")
         board_canvas.pack(pady = 20)
         drawn_board_canvas = self.DrawGrid(self.number_of_rows,self.number_of_columns,node_size,board_canvas)
@@ -24,6 +28,8 @@ class board():
         return drawn_board_canvas
 
     def DrawGrid(self,rows: int,columns: int,node_size: int ,board_canvas: Canvas) -> Canvas:
+        """Draw the drid onto the canvas"""
+        
         for row in range(rows):
             for col in range(columns):
                 x1 = (col * node_size)

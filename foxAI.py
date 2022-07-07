@@ -10,6 +10,7 @@ def MainFoxAI(foxs: list,wolfs: list ,built_canvas: Canvas,node_size: int,board_
     for fox in foxs:
         SetAnimalsInRange(fox,wolfs)
         fox.animal_next_move = FindNextMove(fox,wolfs,board_rows_and_columns)
+        print(fox)
     MoveFoxs(foxs,built_canvas,node_size)
 
 
@@ -20,7 +21,8 @@ def SetAnimalNextMove(fox: object) -> None:
     fox.animal_next_move = FindNextMove(fox)
 
 def FindNextMove(fox: object,wolfs: list[object],board_rows_and_columns: tuple ) -> tuple:
-    return DetermineBestMove(DetermineGoodAndBadMoves(fox,fox.animals_in_range),fox,wolfs,board_rows_and_columns)
+    possible_best_moves = GoodAndBadMoves_Test(DetermineGoodAndBadMoves(fox,fox.animals_in_range))
+    return DetermineBestMove(possible_best_moves,fox,wolfs,board_rows_and_columns)
 
 
 def DetermineGoodAndBadMoves(fox: object,other_animal_coords: list) -> list[tuple]:
@@ -29,11 +31,49 @@ def DetermineGoodAndBadMoves(fox: object,other_animal_coords: list) -> list[tupl
     unusable_moves = set()
     good_move = []
     fox_coord_X, fox_coord_Y = fox.animal_location
+
+    # Worikng on improving this
+
     for coords in other_animal_coords:
         other_animal_coord_X,other_animal_coord_Y = coords
+        # +x
+        if other_animal_coord_X > fox_coord_X and other_animal_coord_Y == fox_coord_Y:
+            unusable_moves.add((1,0))
+            unusable_moves.add((1,1))
+            unusable_moves.add((1,-1))
+            good_move.append((-1,0))
+            good_move.append((-1,-1))
+            good_move.append((-1,1))
+
+        # -x
+        if other_animal_coord_X < fox_coord_X and other_animal_coord_Y == fox_coord_Y:
+            unusable_moves.add((-1,0))
+            unusable_moves.add((-1,-1))
+            unusable_moves.add((-1,1))
+            good_move.append((1,0))
+            good_move.append((1,1))
+            good_move.append((1,-1))
+
+        # +y
+        if other_animal_coord_X == fox_coord_X and other_animal_coord_Y > fox_coord_Y:
+            unusable_moves.add((0,1))
+            unusable_moves.add((1,1))
+            unusable_moves.add((-1,1))
+            good_move.append((0,-1))
+            good_move.append((1,-1))
+            good_move.append((-1,-1))
+        
+        # -y
+        if other_animal_coord_X == fox_coord_X and other_animal_coord_Y < fox_coord_Y:
+            unusable_moves.add((0,-1))
+            unusable_moves.add((-1,-1))
+            unusable_moves.add((1,-1))
+            good_move.append((0,1))
+            good_move.append((-1,1))
+            good_move.append((1,1))
 
         # +x +y
-        if other_animal_coord_X >= fox_coord_X and other_animal_coord_Y >= fox_coord_Y:
+        if other_animal_coord_X > fox_coord_X and other_animal_coord_Y > fox_coord_Y:
             unusable_moves.add((1,0)) 
             unusable_moves.add((0,1))
             unusable_moves.add((1,1))
@@ -41,7 +81,7 @@ def DetermineGoodAndBadMoves(fox: object,other_animal_coords: list) -> list[tupl
             good_move.append((-1,0))
             good_move.append((0,-1))
         # -x -y
-        if other_animal_coord_X <= fox_coord_X and other_animal_coord_Y <= fox_coord_Y:
+        if other_animal_coord_X < fox_coord_X and other_animal_coord_Y < fox_coord_Y:
             unusable_moves.add((-1,0))
             unusable_moves.add((0,-1))
             unusable_moves.add((-1,-1))
@@ -49,7 +89,7 @@ def DetermineGoodAndBadMoves(fox: object,other_animal_coords: list) -> list[tupl
             good_move.append((1,0))
             good_move.append((0,1))
         # +x -y
-        if other_animal_coord_X >= fox_coord_X and other_animal_coord_Y <= fox_coord_Y:
+        if other_animal_coord_X > fox_coord_X and other_animal_coord_Y < fox_coord_Y:
             unusable_moves.add((0,-1)) 
             unusable_moves.add((1,0))
             unusable_moves.add((1,-1))
@@ -57,7 +97,7 @@ def DetermineGoodAndBadMoves(fox: object,other_animal_coords: list) -> list[tupl
             good_move.append((-1,0))
             good_move.append((0,1))
         # -x +y
-        if other_animal_coord_X <= fox_coord_X and other_animal_coord_Y >= fox_coord_Y:
+        if other_animal_coord_X < fox_coord_X and other_animal_coord_Y > fox_coord_Y:
             unusable_moves.add((-1,0))
             unusable_moves.add((0,1))
             unusable_moves.add((-1,1))
@@ -65,17 +105,30 @@ def DetermineGoodAndBadMoves(fox: object,other_animal_coords: list) -> list[tupl
             good_move.append((1,0))
             good_move.append((0,-1))
 
-    return good_move, unusable_moves
+    return good_move, unusable_moves # change this to move data or soemthing better
 
-def DetermineBestMove(Good_and_bad_moves: tuple,fox: object, wolfs: list[object],board_rows_and_columns) -> tuple:
-    """Finds 'best' move based on the most common 'good' move - if no most common use the first given 'good' move - else make no move"""
 
+def GoodAndBadMoves_Test(Good_and_bad_moves: tuple) -> list[tuple]:
     good_moves, bad_moves = Good_and_bad_moves
     possible_best_moves = [move for move in good_moves if move not in list(bad_moves)]
+    return possible_best_moves
+
+
+def DetermineBestMove(possible_best_moves: list[tuple] ,fox: object, wolfs: list[object],board_rows_and_columns) -> tuple:
+    """Finds 'best' move based on the most common 'good' move - if no most common use the first given 'good' move - else make no move"""
+
     if possible_best_moves:
+        print("possible moves", possible_best_moves)
         possible_best_move = collections.Counter(possible_best_moves).most_common(1)[0][0] # give most common or first in good list
+        print("possible moves", possible_best_move)
         if AISupportingMethods.CheckForCollisions(possible_best_move,fox,wolfs,board_rows_and_columns) == True :
+            print
             return possible_best_move
+            
+        else: 
+            print("finding next best move")
+            pbm = [move for move in possible_best_moves if move != possible_best_move]
+            DetermineBestMove(pbm, fox,wolfs,board_rows_and_columns)
     
     return(0,0) # no move
     

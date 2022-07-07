@@ -19,33 +19,42 @@ class main():
         self.board_width = board_width
         self.board_rows_and_columns = self.GetRowsAndColumns()
         self.built_canvas, self.foxs, self.wolfs = setup.main(self.node_size,self.board_height,self.board_width)
-        self.fox_thread = threading.Thread(target=self.RunFoxs)
-        self.wolf_thread = threading.Thread(target=self.RunWolfs)
+        #self.fox_thread = threading.Thread(target=self.RunFoxs)
+        #self.wolf_thread = threading.Thread(target=self.RunWolfs)
         self.RunGame()
     
     def RunGame(self) -> None:
-        #foxAI.MainFoxAI(self.foxs,self.wolfs, self.built_canvas, self.node_size, self.board_rows_and_columns)
-        #wolfAI.MainWolfAI(self.wolfs,self.foxs, self.built_canvas, self.node_size,self.board_rows_and_columns)
+        """Run the main wof and fox threads"""
+
+        foxAI.MainFoxAI(self.foxs,self.wolfs, self.built_canvas, self.node_size, self.board_rows_and_columns)
+        wolfAI.MainWolfAI(self.wolfs,self.foxs, self.built_canvas, self.node_size,self.board_rows_and_columns)
         # Checking for death in here
-        #self.IsFoxDead()
-        #self.built_canvas.after(2000, self.RunGame)
+        self.IsFoxDead()
+        self.built_canvas.after(2000, self.RunGame)
 
         # Not threading for testing 
-        self.fox_thread.start()
-        self.wolf_thread.start()
+        #self.fox_thread.start()
+        #self.wolf_thread.start()
 
     # Moved both into threads - Testing 
+
     def RunFoxs(self) -> None:
+        """Run the fox in threading"""
+
         foxAI.MainFoxAI(self.foxs,self.wolfs, self.built_canvas, self.node_size, self.board_rows_and_columns)
         self.IsFoxDead()
         self.built_canvas.after(2000, self.RunFoxs)
 
     def RunWolfs(self) -> None:
+        """Run the wolf in with threading"""
+
         wolfAI.MainWolfAI(self.wolfs,self.foxs, self.built_canvas, self.node_size,self.board_rows_and_columns)
         self.built_canvas.after(3000, self.RunWolfs)
 
     # Only in here until i find a beter place
     def GetRowsAndColumns(self) -> tuple:
+        """Get the number of rows and columns on the canvas """
+
         number_of_rows = int(self.board_width / self.node_size)
         number_of_columns = int(self.board_width / self.node_size)
         return (number_of_rows, number_of_columns)
@@ -60,12 +69,12 @@ class main():
                 print("A Fox is dead")
 
 
-
-
         #  Do next:  
+        # Lots of clean up and refactoring to sort out the mess of methods and classes and fnctions all over the place
+
         #  Fox movment needs to be improved
-        #  Add fox death 
-        #  
+        #  - Move over to a better way to detect and move 
+        #  - issue with finding the best move and carrying in out <- possibalycollision checking issue
         #  
         #  Issues: 
         #  Collision is currently quite clunky - find a better way 

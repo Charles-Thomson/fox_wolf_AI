@@ -15,7 +15,7 @@ def MainWolfAI(wolfs: list, foxs: list, built_canvas: Canvas, node_size: int, bo
         SetAnimalsInRange(wolf, foxs)
         SetAnimalNextMove(wolf,wolfs,board_rows_and_columns)
         SetAnimalMovingTo(wolf)
-        print(wolf)
+        
         
     MoveWolf(wolfs,built_canvas,node_size)
      
@@ -74,7 +74,6 @@ def DeterminePossibleMoves(wolf: object, other_animal_coords: list) -> tuple:
 
 def FindBestMove(possible_moves: list[tuple],wolf: object ,wolfs: list,board_rows_and_columns: tuple) -> tuple:
     """Find the most common 'good' move from the possible moves - if none then return no move (0,0)"""
-    print("Find best called", wolf.animal_ID)
 
     if possible_moves:
         possible_best_move = collections.Counter(possible_moves).most_common(1)[0][0]
