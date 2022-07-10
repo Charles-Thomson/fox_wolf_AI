@@ -28,7 +28,7 @@ def FindNextMove(fox: object,wolfs: list[object],board_rows_and_columns: tuple )
 def DetermineGoodAndBadMoves(fox: object,other_animal_coords: list) -> list[tuple]:
     """Takes in the fox object and the coordinates of other animals in range, determians move based  on other animals x,y locations"""
 
-    unusable_moves = set()
+    unusable_moves = []
     good_move = []
     fox_coord_X, fox_coord_Y = fox.animal_location
 
@@ -38,74 +38,47 @@ def DetermineGoodAndBadMoves(fox: object,other_animal_coords: list) -> list[tupl
         other_animal_coord_X,other_animal_coord_Y = coords
         # +x
         if other_animal_coord_X > fox_coord_X and other_animal_coord_Y == fox_coord_Y:
-            unusable_moves.add((1,0))
-            unusable_moves.add((1,1))
-            unusable_moves.add((1,-1))
-            good_move.append((-1,0))
-            good_move.append((-1,-1))
-            good_move.append((-1,1))
-
+            unusable_moves.extend([(1,0),(1,1),(1,-1)])
+            good_move.extend([(-1,0),(-1,-1),(-1,1)])
+            
         # -x
         if other_animal_coord_X < fox_coord_X and other_animal_coord_Y == fox_coord_Y:
-            unusable_moves.add((-1,0))
-            unusable_moves.add((-1,-1))
-            unusable_moves.add((-1,1))
-            good_move.append((1,0))
-            good_move.append((1,1))
-            good_move.append((1,-1))
-
+            unusable_moves.extend([(-1,0),(-1,-1),(-1,1)])
+            good_move.extend([(1,0),(1,-1),(1,1)])
+            
         # +y
         if other_animal_coord_X == fox_coord_X and other_animal_coord_Y > fox_coord_Y:
-            unusable_moves.add((0,1))
-            unusable_moves.add((1,1))
-            unusable_moves.add((-1,1))
-            good_move.append((0,-1))
-            good_move.append((1,-1))
-            good_move.append((-1,-1))
-        
+            unusable_moves.extend([(0,1),(1,1),(-1,1)])
+            good_move.extend([(0,-1),(1,-1),(-1,-1)])
+            
         # -y
         if other_animal_coord_X == fox_coord_X and other_animal_coord_Y < fox_coord_Y:
-            unusable_moves.add((0,-1))
-            unusable_moves.add((-1,-1))
-            unusable_moves.add((1,-1))
-            good_move.append((0,1))
-            good_move.append((-1,1))
-            good_move.append((1,1))
-
+            unusable_moves.extend([(0,-1),(-1,-1),(1,-1)])
+            good_move.extend([(0,1),(-1,1),(1,1)])
+            
         # +x +y
         if other_animal_coord_X > fox_coord_X and other_animal_coord_Y > fox_coord_Y:
-            unusable_moves.add((1,0)) 
-            unusable_moves.add((0,1))
-            unusable_moves.add((1,1))
-            good_move.append((-1,-1))
-            good_move.append((-1,0))
-            good_move.append((0,-1))
+            unusable_moves.extend([(1,0),(0,1),(1,1)]) 
+            good_move.extend([(-1,-1),(-1,0),(0,-1)])
+            
         # -x -y
         if other_animal_coord_X < fox_coord_X and other_animal_coord_Y < fox_coord_Y:
-            unusable_moves.add((-1,0))
-            unusable_moves.add((0,-1))
-            unusable_moves.add((-1,-1))
-            good_move.append((1,1))
-            good_move.append((1,0))
-            good_move.append((0,1))
+            unusable_moves.extend([(-1,0),(0,-1),(-1,-1)])
+            
+            good_move.extend([(1,1),(1,0),(0,1)])
+            
         # +x -y
         if other_animal_coord_X > fox_coord_X and other_animal_coord_Y < fox_coord_Y:
-            unusable_moves.add((0,-1)) 
-            unusable_moves.add((1,0))
-            unusable_moves.add((1,-1))
-            good_move.append((-1,1))
-            good_move.append((-1,0))
-            good_move.append((0,1))
+            unusable_moves.extend([(0,-1),(1,0),(1,-1)]) 
+            good_move.extend([(-1,1),(-1,0),(0,1)])
+            
         # -x +y
         if other_animal_coord_X < fox_coord_X and other_animal_coord_Y > fox_coord_Y:
-            unusable_moves.add((-1,0))
-            unusable_moves.add((0,1))
-            unusable_moves.add((-1,1))
-            good_move.append((1,-1))
-            good_move.append((1,0))
-            good_move.append((0,-1))
-
-    return good_move, unusable_moves # change this to move data or soemthing better
+            unusable_moves.extend([(-1,0),(0,1),(-1,1)])
+            good_move.extend([(1,-1),(1,0),(0,-1)])
+            
+    unusable_moves_set = set(unusable_moves)
+    return good_move, unusable_moves_set # change this to move data or soemthing better
 
 
 def GoodAndBadMoves_Test(Good_and_bad_moves: tuple) -> list[tuple]:

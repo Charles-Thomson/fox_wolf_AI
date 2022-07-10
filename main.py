@@ -57,7 +57,7 @@ class main():
 
         number_of_rows = int(self.board_width / self.node_size)
         number_of_columns = int(self.board_width / self.node_size)
-        return (number_of_rows, number_of_columns)
+        return (number_of_rows - 1, number_of_columns - 1 )
 
     def IsFoxDead(self) -> None: 
         """Check if a fox is dead -> if dead remove from list and delte from canvas"""
@@ -70,7 +70,7 @@ class main():
 
 
         #  Do next:  
-        # Lots of clean up and refactoring to sort out the mess of methods and classes and fnctions all over the place
+        # Fox and Wolf data classes refactored - now using protocol - need to refactor rest of project to accomodate
 
         #  Fox movment needs to be improved
         #  - Move over to a better way to detect and move 

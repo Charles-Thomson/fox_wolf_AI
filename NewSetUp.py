@@ -94,7 +94,7 @@ def GenerateWolfs() -> list:
                                          animal_location=(4,16),
                                          animal_sight_range=4,
                                          animaml_draw_colour = "red")
-    return [wolf_A,wolf_B,wolf_C]
+    return [wolf_A,wolf_B]
 
 
 def DrawAnimalsOnCanvas(built_canvas, animals) -> None:
