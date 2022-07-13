@@ -1,16 +1,9 @@
-import setup as st
 import NewSetUp as setup
-import time
-from AI import fox_AI as fox_AI 
-from AI import wolf_AI as wolf_AI
-import foxAI as foxAI
-import wolfAI as wolfAI
-
+from AI import foxAI 
+from AI import wolfAI
 import tkinter as tk
-from tkinter import *
 
 import threading 
-
 
 class main():
     def __init__(self,parent,node_size, board_height, board_width):
@@ -21,43 +14,18 @@ class main():
         self.built_canvas, self.foxs, self.wolfs = setup.main(self.node_size,self.board_height,self.board_width)
         #self.fox_thread = threading.Thread(target=self.RunFoxs)
         #self.wolf_thread = threading.Thread(target=self.RunWolfs)
-        self.RunGame()
+        #self.RunGame()
     
     def RunGame(self) -> None:
         """Run the main wof and fox threads"""
 
         foxAI.MainFoxAI(self.foxs,self.wolfs, self.built_canvas, self.node_size, self.board_rows_and_columns)
         wolfAI.MainWolfAI(self.wolfs,self.foxs, self.built_canvas, self.node_size,self.board_rows_and_columns)
+
+
         # Checking for death in here
         self.IsFoxDead()
         self.built_canvas.after(2000, self.RunGame)
-
-        # Not threading for testing 
-        #self.fox_thread.start()
-        #self.wolf_thread.start()
-
-    # Moved both into threads - Testing 
-
-    def RunFoxs(self) -> None:
-        """Run the fox in threading"""
-
-        foxAI.MainFoxAI(self.foxs,self.wolfs, self.built_canvas, self.node_size, self.board_rows_and_columns)
-        self.IsFoxDead()
-        self.built_canvas.after(2000, self.RunFoxs)
-
-    def RunWolfs(self) -> None:
-        """Run the wolf in with threading"""
-
-        wolfAI.MainWolfAI(self.wolfs,self.foxs, self.built_canvas, self.node_size,self.board_rows_and_columns)
-        self.built_canvas.after(3000, self.RunWolfs)
-
-    # Only in here until i find a beter place
-    def GetRowsAndColumns(self) -> tuple:
-        """Get the number of rows and columns on the canvas """
-
-        number_of_rows = int(self.board_width / self.node_size)
-        number_of_columns = int(self.board_width / self.node_size)
-        return (number_of_rows - 1, number_of_columns - 1 )
 
     def IsFoxDead(self) -> None: 
         """Check if a fox is dead -> if dead remove from list and delte from canvas"""
@@ -70,8 +38,11 @@ class main():
 
 
         #  Do next:  
-        # Fox and Wolf data classes refactored - now using protocol - need to refactor rest of project to accomodate
-
+        # Refactoring - Board 
+        # Then NewFoxAI
+        # Then NewWolfAI 
+        # -> inc te uspporting functions for both
+        #
         #  Fox movment needs to be improved
         #  - Move over to a better way to detect and move 
         #  - issue with finding the best move and carrying in out <- possibalycollision checking issue

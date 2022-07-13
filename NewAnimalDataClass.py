@@ -3,19 +3,20 @@ from enum import Enum, auto
 from typing import Protocol
 from dataclasses import dataclass
 
-
 class AnimalType(Enum):
     """Enumeration of the animal types"""
-    FOX = auto()
-    WOLF= auto()
+    FOX = "Fox"
+    WOLF = "Wolf"
 
 @dataclass
 class AnimalCoreData:
     """Core Data for each animal"""
-    animal_ID: int
+    animal_ID: int 
     animal_type: AnimalType
     animal_sigth_range: int
+    animal_spawn_location: tuple
     animal_draw_colour: str
+    animal_alive: bool = True
     
 @dataclass
 class AnimalMoveData:
@@ -24,9 +25,6 @@ class AnimalMoveData:
     animals_in_range: list[tuple] = field(default_factory = list[tuple])
     animal_next_move: tuple = field(default_factory = tuple)
     animal_moving_to: tuple = field(default_factory = tuple)
-
-
-# Amimal Classes
 
 @dataclass
 class Animal(Protocol):
@@ -38,29 +36,28 @@ class Animal(Protocol):
 @dataclass
 class Wolf:
     """Wolf - Predator """
-    animal_alive: bool
     animal_core_data: AnimalCoreData
     animal_move_data: AnimalMoveData
 
 @dataclass
 class Fox:
     """Fox - Prey"""
-    animal_alive: bool
     animal_core_data: AnimalCoreData 
     animal_move_data: AnimalMoveData 
-
     
 
 
+def SpawnAnimal(animal_type: AnimalType, animal_location: tuple, animal_sight_range: int, animal_draw_colour: str) -> Fox:
+    if animal_type == animal_type.FOX:
+        return Fox(animal_core_data= AnimalCoreData(0,animal_type.FOX,animal_sight_range,animal_location,animal_draw_colour), animal_move_data= AnimalMoveData())
+
+    if animal_type == animal_type.WOLF:
+        return Fox(animal_core_data= AnimalCoreData(0,animal_type.WOLF,animal_sight_range,animal_location,animal_draw_colour), animal_move_data= AnimalMoveData())
 
 
-# Test for the creation of an animal 
-def SpawnNewTestAnimal() -> object:
-    """Wolf Test Instance"""
-    return Wolf(animal_alive = True,animal_core_data= AnimalCoreData(1, AnimalType.WOLF, 4, "red"), animal_move_data = AnimalMoveData())
 
 def Main() -> None:
-    test_animal = SpawnNewTestAnimal()
+    test_animal = SpawnAnimal(AnimalType.FOX,(7,7),4,"blue")
     print(test_animal)
 
 if __name__ == "__main__":

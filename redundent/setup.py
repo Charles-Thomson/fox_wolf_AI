@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import *
 
-import board
+import redundent.board as board
 
 def set_up(parent,node_size,board_height,board_width):
         alive_fox_locations = []

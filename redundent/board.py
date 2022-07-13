@@ -1,6 +1,7 @@
 from platform import node
 import tkinter as tk
 from tkinter import *
+from dataclasses import dataclass
 
 class board():
     def __init__(self,node_size: int ,board_height: int ,board_width: int) -> None:

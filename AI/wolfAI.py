@@ -1,8 +1,8 @@
 from tkinter import *
 from typing import Collection
 from AI import AISupportingMethods
-from NewSetUp import build_canvas
-from foxAI import DetermineGoodAndBadMoves
+
+
 
 import collections
 
