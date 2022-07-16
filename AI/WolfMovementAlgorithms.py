@@ -1,4 +1,3 @@
-
 from enum import Enum
 from AI import AISupportingMethods
 

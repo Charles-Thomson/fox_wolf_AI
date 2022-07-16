@@ -14,6 +14,13 @@ def DetectAnimalsInRange(main_animal, other_animals) -> list:
     
     return animals_in_range
 
+def SetAnimalMovingTo(animal: object) -> None:
+    current_location = animal.animal_move_data.animal_location
+    move_by = animal.animal_move_data.animal_next_move
+
+    new_coords = tuple(sum(x) for x in zip(current_location,move_by))
+    animal.animal_move_data.animal_moving_to = new_coords
+
 
 def RebuildDetermineBestMove(good_moves: list[tuple]) -> tuple:
     if good_moves:

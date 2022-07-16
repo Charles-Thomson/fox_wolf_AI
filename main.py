@@ -14,10 +14,10 @@ class main():
         self.testNewWolfAI()
 
     def testNewFoxAI(self):
-        NewFoxAI.MainFoxAI(self.foxs, self.wolfs)
+        NewFoxAI.MainFoxAI(self.foxs, self.wolfs,self.canvas_data)
 
     def testNewWolfAI(self):
-        NewWolfAI.MainWolfAI(self.wolfs,self.foxs)
+        NewWolfAI.MainWolfAI(self.wolfs,self.foxs,self.canvas_data)
     
 
 
@@ -43,15 +43,7 @@ class main():
         # 
         #look at logging instead of print /?
 
-
-
-       
-
         # start looking at reverse A* 
-
-
-        
-
 
 
 if __name__ == "__main__":
