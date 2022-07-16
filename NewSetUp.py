@@ -12,10 +12,9 @@ def main(node_size: int,canvas_height: int ,canvas_width: int) -> Canvas:
 
     CanvasData = BuildCanvas(node_size,canvas_height,canvas_width)
     foxs = GenerateFoxs()
-    wolfs = GenerateWolfs()
-    
+    wolfs = GenerateWolfs()    
     DrawAnimalsOnCanvas(CanvasData.canvas, foxs)
-    DrawAnimalsOnCanvas(CanvasData.canvas, wolfs)
+    #DrawAnimalsOnCanvas(CanvasData.canvas, wolfs)
 
     return CanvasData, foxs , wolfs
     
@@ -36,20 +35,22 @@ def GenerateWolfs() -> list:
                                          animal_location=(5,5),
                                          animal_sight_range=4,
                                          animal_draw_colour = "red")
-    return [wolf_A]
+    return []
 
 
 def DrawAnimalsOnCanvas(built_canvas, animals) -> None:
-    """Draw all the animals in each list to the canvas"""
+    """Draw animals to canvas - set the animal_ID and animal_move_data"""
 
     for animal in animals:
         coord_x, coord_y = animal.animal_core_data.animal_spawn_location
-        x1,y1,x2,y2 = AISupportingMethods.ConvertToLongCoords(coord_x, coord_y,node_size = 20)
+        x1,y1,x2,y2 = AISupportingMethods.ConvertToLongCoords(coord_x, coord_y, node_size = 20)
+
+        # Change to a set animal data method 
         animal.animal_ID = built_canvas.create_rectangle(x1,y1,x2,y2, fill=animal.animal_core_data.animal_draw_colour)
         animal.animal_move_data.animal_location = animal.animal_core_data.animal_spawn_location
 
 def BuildCanvas(node_size,canvas_height,canvas_width) -> Canvas:
-    """Generate the canvas"""
+    """Generate the Canvas Data """
 
     return NewBoard.BuildCanvas(canvas_height, canvas_width,node_size)
 

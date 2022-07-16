@@ -18,6 +18,7 @@ def BuildCanvas(canvas_height: int, canvas_width: int, node_size: int) -> Canvas
     canvas = Canvas(width = canvas_width, height= canvas_height, bg = "white")
     canvas.pack(pady = 20)
     number_of_rows, number_of_columns = CalculateRowsAndColumns(canvas_height, canvas_height, node_size)
+    
     for row in range(number_of_rows):
         for col in range(number_of_columns):
             x1 = (col * node_size)

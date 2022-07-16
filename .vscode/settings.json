@@ -2,5 +2,6 @@
     "python.analysis.extraPaths": [
         "./AI's",
         "./AI"
-    ]
+    ],
+    "python.linting.enabled": true
 }

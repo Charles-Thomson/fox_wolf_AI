@@ -1,10 +1,9 @@
-import tkinter as tk
-from tkinter import *
+import collections
 
 def DetectAnimalsInRange(main_animal, other_animals) -> list:
     """Detect animals in range of the given animal, returns list of animals in range coords (x,y) """
 
-    main_animal_coord_X, main_animal_coord_Y = main_animal.animal_location
+    main_animal_coord_X, main_animal_coord_Y = main_animal.animal_move_data.animal_location
     animals_in_range = []
 
     for other_animal in other_animals:
@@ -14,6 +13,31 @@ def DetectAnimalsInRange(main_animal, other_animals) -> list:
             animals_in_range.append(other_animal.animal_location)
     
     return animals_in_range
+
+
+def RebuildDetermineBestMove(good_moves: list[tuple]) -> tuple:
+    if good_moves:
+        best_move_test = collections.collection(good_moves).most_common(1)[0][0]
+        return (10,10)
+
+
+def DetermineBestMove(possible_best_moves: list[tuple] ,fox: object, wolfs: list[object],board_rows_and_columns) -> tuple:
+    """Finds 'best' move based on the most common 'good' move - if no most common use the first given 'good' move - else make no move"""
+
+    if possible_best_moves:
+        print("possible moves", possible_best_moves)
+        possible_best_move = collections.Counter(possible_best_moves).most_common(1)[0][0] # give most common or first in good list
+        print("possible moves", possible_best_move)
+        if CheckForCollisions(possible_best_move,fox,wolfs,board_rows_and_columns) == True :
+            print
+            return possible_best_move
+            
+        else: 
+            print("finding next best move")
+            pbm = [move for move in possible_best_moves if move != possible_best_move]
+            DetermineBestMove(pbm, fox,wolfs,board_rows_and_columns)
+    
+    return(0,0) # no move
 
 def ConvertToShortCoords(animal,built_canvas, node_size) -> tuple:
     """Convert the long coordinates used by tkinter to x,y  """

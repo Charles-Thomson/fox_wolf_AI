@@ -2,6 +2,7 @@ from dataclasses import dataclass, field
 from enum import Enum, auto 
 from typing import Protocol
 from dataclasses import dataclass
+from AI import FoxMovementAlgorithms
 
 class AnimalType(Enum):
     """Enumeration of the animal types"""
@@ -29,30 +30,32 @@ class AnimalMoveData:
 @dataclass
 class Animal(Protocol):
     """Protocol animal clases must follow"""
-    animal_alive: ...
     animal_core_data: ...
     animal_move_data: ... 
+    animal_movment_algorithm: ...
     
 @dataclass
 class Wolf:
     """Wolf - Predator """
     animal_core_data: AnimalCoreData
     animal_move_data: AnimalMoveData
+    animal_movment_algorithm: FoxMovementAlgorithms.MovementAlgoritm
 
 @dataclass
 class Fox:
     """Fox - Prey"""
     animal_core_data: AnimalCoreData 
     animal_move_data: AnimalMoveData 
+    animal_movement_algorithm: FoxMovementAlgorithms
     
 
 
 def SpawnAnimal(animal_type: AnimalType, animal_location: tuple, animal_sight_range: int, animal_draw_colour: str) -> Fox:
     if animal_type == animal_type.FOX:
-        return Fox(animal_core_data= AnimalCoreData(0,animal_type.FOX,animal_sight_range,animal_location,animal_draw_colour), animal_move_data= AnimalMoveData())
+        return Fox(animal_core_data= AnimalCoreData(0,animal_type.FOX,animal_sight_range,animal_location,animal_draw_colour), animal_move_data= AnimalMoveData(), animal_movement_algorithm=FoxMovementAlgorithms.MovementAlgoritm.BASIC)
 
     if animal_type == animal_type.WOLF:
-        return Fox(animal_core_data= AnimalCoreData(0,animal_type.WOLF,animal_sight_range,animal_location,animal_draw_colour), animal_move_data= AnimalMoveData())
+        return Fox(animal_core_data= AnimalCoreData(0,animal_type.WOLF,animal_sight_range,animal_location,animal_draw_colour), animal_move_data= AnimalMoveData(), animal_movement_algorithm=FoxMovementAlgorithms.MovementAlgoritm.BASIC)
 
 
 

@@ -1,7 +1,17 @@
 import tkinter as tk
 from AI import AISupportingMethods
 import collections
-from tkinter import Canvas 
+from tkinter import Canvas
 
-def MainFoxAI(foxs: list, wolfs: list, built_canvas: Canvas, node_size: int, board_rows_and_columns: int):
-    pass
+# this works
+def MainFoxAI(foxs: list, wolfs: list):
+    for fox in foxs:
+        fox.animal_move_data.animals_in_range = AISupportingMethods.DetectAnimalsInRange(fox,wolfs)
+        fox.animal_movement_algorithm(fox)
+        print(fox)
+
+
+
+
+
+

@@ -1,6 +1,7 @@
 import NewSetUp as setup
 from AI import foxAI 
 from AI import wolfAI
+from AI import NewFoxAI
 import tkinter as tk
 
 import threading 
@@ -10,38 +11,24 @@ class main():
         self.node_size = node_size
         self.board_height = board_height
         self.board_width = board_width
-        self.board_rows_and_columns = self.GetRowsAndColumns()
-        self.built_canvas, self.foxs, self.wolfs = setup.main(self.node_size,self.board_height,self.board_width)
-        #self.fox_thread = threading.Thread(target=self.RunFoxs)
-        #self.wolf_thread = threading.Thread(target=self.RunWolfs)
-        #self.RunGame()
+        self.canvas_data, self.foxs, self.wolfs = setup.main(self.node_size,self.board_height,self.board_width)
+        self.testNewFoxAI()
+
+    def testNewFoxAI(self):
+        NewFoxAI.MainFoxAI(self.foxs, self.wolfs)
     
-    def RunGame(self) -> None:
-        """Run the main wof and fox threads"""
-
-        foxAI.MainFoxAI(self.foxs,self.wolfs, self.built_canvas, self.node_size, self.board_rows_and_columns)
-        wolfAI.MainWolfAI(self.wolfs,self.foxs, self.built_canvas, self.node_size,self.board_rows_and_columns)
-
-
-        # Checking for death in here
-        self.IsFoxDead()
-        self.built_canvas.after(2000, self.RunGame)
-
-    def IsFoxDead(self) -> None: 
-        """Check if a fox is dead -> if dead remove from list and delte from canvas"""
-
-        for fox in self.foxs:
-            if any(fox.animal_location == wolf.animal_location for wolf in self.wolfs):
-                self.foxs.remove(fox)
-                self.built_canvas.delete(fox.animal_ID)
-                print("A Fox is dead")
 
 
         #  Do next:  
-        # Refactoring - Board 
-        # Then NewFoxAI
-        # Then NewWolfAI 
-        # -> inc te uspporting functions for both
+        #   Refactoring
+        # - Moving Algoritms into own class and giving enumeration <- done 
+        # - Each aniaml gets algorithm assigned <- done
+        # - Loop each animal and call the algorithm <- done for foxs
+        # 
+        # - refactor move calls for animals
+        # - need new detectionn of collision and death 
+        
+        
         #
         #  Fox movment needs to be improved
         #  - Move over to a better way to detect and move 
