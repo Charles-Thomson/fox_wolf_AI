@@ -7,18 +7,18 @@ def DetectAnimalsInRange(main_animal, other_animals) -> list:
     animals_in_range = []
 
     for other_animal in other_animals:
-        other_animal_coord_X, other_animal_coord_Y = other_animal.animal_location
+        other_animal_coord_X, other_animal_coord_Y = other_animal.animal_move_data.animal_location
 
-        if main_animal_coord_X in range(int(other_animal_coord_X - main_animal.animal_sight_range),int(other_animal_coord_X + main_animal.animal_sight_range)) and main_animal_coord_Y in range(int(other_animal_coord_Y - main_animal.animal_sight_range), int(other_animal_coord_Y + main_animal.animal_sight_range)):
-            animals_in_range.append(other_animal.animal_location)
+        if main_animal_coord_X in range(int(other_animal_coord_X - main_animal.animal_core_data.animal_sight_range),int(other_animal_coord_X + main_animal.animal_core_data.animal_sight_range)) and main_animal_coord_Y in range(int(other_animal_coord_Y - main_animal.animal_core_data.animal_sight_range), int(other_animal_coord_Y + main_animal.animal_core_data.animal_sight_range)):
+            animals_in_range.append(other_animal.animal_move_data.animal_location)
     
     return animals_in_range
 
 
 def RebuildDetermineBestMove(good_moves: list[tuple]) -> tuple:
     if good_moves:
-        best_move_test = collections.collection(good_moves).most_common(1)[0][0]
-        return (10,10)
+        return collections.Counter(good_moves).most_common(1)[0][0]
+        
 
 
 def DetermineBestMove(possible_best_moves: list[tuple] ,fox: object, wolfs: list[object],board_rows_and_columns) -> tuple:

@@ -1,10 +1,8 @@
 import NewSetUp as setup
-from AI import foxAI 
-from AI import wolfAI
 from AI import NewFoxAI
+from AI import NewWolfAI
 import tkinter as tk
 
-import threading 
 
 class main():
     def __init__(self,parent,node_size, board_height, board_width):
@@ -13,9 +11,13 @@ class main():
         self.board_width = board_width
         self.canvas_data, self.foxs, self.wolfs = setup.main(self.node_size,self.board_height,self.board_width)
         self.testNewFoxAI()
+        self.testNewWolfAI()
 
     def testNewFoxAI(self):
         NewFoxAI.MainFoxAI(self.foxs, self.wolfs)
+
+    def testNewWolfAI(self):
+        NewWolfAI.MainWolfAI(self.wolfs,self.foxs)
     
 
 

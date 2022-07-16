@@ -1,20 +1,19 @@
 import tkinter as tk
-from tkinter import *
-import redundent.AnimalDataClass as AnimalDataClass
+from tkinter import Canvas
 from AI import AISupportingMethods
 import NewAnimalDataClass
 import NewBoard
 
-import redundent.board as board
+
 
 def main(node_size: int,canvas_height: int ,canvas_width: int) -> Canvas:
     """Setup - Create the board and generate animals"""
 
-    CanvasData = BuildCanvas(node_size,canvas_height,canvas_width)
+    CanvasData = NewBoard.BuildCanvas(canvas_height, canvas_width,node_size)
     foxs = GenerateFoxs()
     wolfs = GenerateWolfs()    
     DrawAnimalsOnCanvas(CanvasData.canvas, foxs)
-    #DrawAnimalsOnCanvas(CanvasData.canvas, wolfs)
+    DrawAnimalsOnCanvas(CanvasData.canvas, wolfs)
 
     return CanvasData, foxs , wolfs
     
@@ -31,14 +30,14 @@ def GenerateFoxs() -> list:
 def GenerateWolfs() -> list:
     """Generate each wolf and return as list"""
 
-    wolf_A = NewAnimalDataClass.SpawnAnimal(animal_type= AnimalDataClass.AnimalType.WOLF, 
+    wolf_A = NewAnimalDataClass.SpawnAnimal(animal_type= NewAnimalDataClass.AnimalType.WOLF, 
                                          animal_location=(5,5),
                                          animal_sight_range=4,
                                          animal_draw_colour = "red")
-    return []
+    return [wolf_A]
 
 
-def DrawAnimalsOnCanvas(built_canvas, animals) -> None:
+def DrawAnimalsOnCanvas(built_canvas: Canvas, animals: list[object]) -> None:
     """Draw animals to canvas - set the animal_ID and animal_move_data"""
 
     for animal in animals:
@@ -49,8 +48,5 @@ def DrawAnimalsOnCanvas(built_canvas, animals) -> None:
         animal.animal_ID = built_canvas.create_rectangle(x1,y1,x2,y2, fill=animal.animal_core_data.animal_draw_colour)
         animal.animal_move_data.animal_location = animal.animal_core_data.animal_spawn_location
 
-def BuildCanvas(node_size,canvas_height,canvas_width) -> Canvas:
-    """Generate the Canvas Data """
 
-    return NewBoard.BuildCanvas(canvas_height, canvas_width,node_size)
 

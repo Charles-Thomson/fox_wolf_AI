@@ -52,7 +52,7 @@ def BasicMovmentAlgorithm(self: object) -> None:
             good_moves.extend([(1,-1),(1,0),(0,-1)])
             
     good_moves = [move for move in good_moves if move not in bad_moves]
-    self.animal_move_data.animal_next_move = (10,10) #AISupportingMethods.RebuildDetermineBestMove(good_moves)
+    self.animal_move_data.animal_next_move = AISupportingMethods.RebuildDetermineBestMove(good_moves)
 
 
 
@@ -60,7 +60,8 @@ def BasicMovmentAlgorithm(self: object) -> None:
 
 
 
-class MovementAlgoritm(Enum):
+class FoxMovementAlgoritm(Enum):
     """Enumerate the Movment Algorithms"""
+    
     BASIC = BasicMovmentAlgorithm
     

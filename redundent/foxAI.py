@@ -1,5 +1,5 @@
 # from re import U
-from tkinter import *
+from tkinter import root
 import tkinter as tk
 from AI import AISupportingMethods
 import collections 
