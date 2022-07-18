@@ -3,7 +3,8 @@ from enum import Enum
 from AI import AISupportingMethods
 
 
-def BasicMovmentAlgorithm(self: object) -> None:
+
+def BasicMovmentAlgorithm(self: object,collision_detection: object) -> None:
     print("In the alg")
     good_moves = []
     bad_moves = []
@@ -52,7 +53,8 @@ def BasicMovmentAlgorithm(self: object) -> None:
             good_moves.extend([(1,-1),(1,0),(0,-1)])
             
     good_moves = [move for move in good_moves if move not in bad_moves]
-    self.animal_move_data.animal_next_move = AISupportingMethods.RebuildDetermineBestMove(good_moves)
+    fox_current_location = (fox_coord_X, fox_coord_Y)
+    self.animal_move_data.animal_next_move = AISupportingMethods.RebuildDetermineBestMove(fox_current_location,good_moves, collision_detection)
 
 
 

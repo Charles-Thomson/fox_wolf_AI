@@ -1,11 +1,28 @@
 from enum import Enum
 from AI import AISupportingMethods
+from abc import ABC, abstractmethod
 
-def BasicMovmentAlgorithm(self: object) -> None:
+# Perhaps implement at later stage ? 
+class MovementAlgorithm(ABC):
+
+    @abstractmethod
+    def Algorithm(self) -> None:
+        """Algorithm to find the next move"""
+        pass
+
+    @abstractmethod
+    def CollisionCheck(moving_to: tuple) -> bool:
+        """Call to collision check to see if move possible"""
+        pass
+
+
+
+def BasicMovmentAlgorithm(wolf: object ,collision_detection: object) -> None: 
+    """Basic process to determin best move for the animal"""
     good_moves = []
-    wolf_coord_X, wolf_coord_Y = self.animal_move_data.animal_location
+    wolf_coord_X, wolf_coord_Y = wolf.animal_move_data.animal_location
 
-    for coord_X, coord_Y in self.animal_move_data.animals_in_range:
+    for coord_X, coord_Y in wolf.animal_move_data.animals_in_range:
         # +x +y
         if wolf_coord_X >= coord_X and wolf_coord_Y >= coord_Y:
             good_moves.extend([(-1,-1),(0,-1),(-1,0)])
@@ -21,11 +38,11 @@ def BasicMovmentAlgorithm(self: object) -> None:
         # -y -x 
         if wolf_coord_X <= coord_X and wolf_coord_Y <= coord_Y:
             good_moves.extend([(1,1),(0,1),(1,0)])
-            
 
-    self.animal_move_data.animal_next_move = AISupportingMethods.RebuildDetermineBestMove(good_moves) # call to method in AI support
+    
+    wolf_current_location = (wolf_coord_X, wolf_coord_Y)
+    wolf.animal_move_data.animal_next_move = AISupportingMethods.RebuildDetermineBestMove(wolf_current_location,good_moves,collision_detection) # Need to work it into here!!
 
+    
 
-class WolfMovementAlgorithm(Enum):
-    BASIC = BasicMovmentAlgorithm
     

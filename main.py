@@ -22,26 +22,12 @@ class main():
 
 
         #  Do next:  
-        #   Refactoring
-        # - Moving Algoritms into own class and giving enumeration <- done 
-        # - Each aniaml gets algorithm assigned <- done
-        # - Loop each animal and call the algorithm <- done for foxs
-        # 
-        # - refactor move calls for animals
-        # - need new detectionn of collision and death 
-        
-        
+        # Re name methods to something mre applicable 
+        # Collision detection in place
+        # Refactor to use a loop instead of tail recursion in the supporting method 
         #
-        #  Fox movment needs to be improved
-        #  - Move over to a better way to detect and move 
-        #  - issue with finding the best move and carrying in out <- possibalycollision checking issue
-        #  
-        #  Issues: 
-        #  Collision is currently quite clunky - find a better way 
-        #  Fox move has bug -> more moves can be made but freezes in place
-        # 
-        # 
-        #look at logging instead of print /?
+        # Clean up the supporting methods file !
+        #
 
         # start looking at reverse A* 
 

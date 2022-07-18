@@ -32,7 +32,12 @@ def GenerateWolfs() -> list:
                                          animal_location=(7,7),
                                          animal_sight_range=4,
                                          animal_draw_colour = "red")
-    return [wolf_A]
+                                         
+    wolf_B = NewAnimalDataClass.SpawnAnimal(animal_type= NewAnimalDataClass.AnimalType.WOLF, 
+                                         animal_location=(6,6),
+                                         animal_sight_range=4,
+                                         animal_draw_colour = "red")
+    return [wolf_A,wolf_B]
 
 
 def DrawAnimalsOnCanvas(built_canvas: Canvas, animals: list[object]) -> None:
