@@ -23,31 +23,52 @@ def SetAnimalMovingTo(animal: object) -> None:
     new_coords = tuple(sum(x) for x in zip(current_location,move_by))
     animal.animal_move_data.animal_moving_to = new_coords
 
-def AnimalWouldMoveTo(animal_current_location: tuple, animal_potentia_move: tuple):
+def AnimalWouldMoveTo(animal_current_location: tuple, animal_potential_move: tuple):
     """Helper function used in DeterminBestMove"""
-    return tuple(sum(x) for x in zip(animal_current_location,animal_potentia_move))
+    return tuple(sum(x) for x in zip(animal_current_location,animal_potential_move))
 
 
 # Need to pass the position the animal will move to in here 
 def RebuildDetermineBestMove(animal_current_location: tuple, good_moves: list[tuple], collision_detection: object ) -> tuple:
     """Finding the optimal move that is also allowed"""
+    move_found_flag = False
 
-    if good_moves == []:
+    if len(good_moves) == 0:
         return (0,0) # If no good moves return no move
 
-    potential_move = collections.Counter(good_moves).most_common(1)[0][0]
-    potential_new_location = AnimalWouldMoveTo(animal_current_location,potential_move)
+    while move_found_flag == False: 
 
-    if collision_detection.CollisionChecking(potential_new_location) == True:
-        return potential_move
-    else:
-        good_moves = [move for move in good_moves if move != potential_move]
-        RebuildDetermineBestMove(animal_current_location,good_moves, collision_detection)
-
+        if good_moves == []:
+            return (0,0)
+        print(good_moves, "In the renag issue bs")
+        
+        potential_move = collections.Counter(good_moves).most_common()[0][0]
+    
+        
+        potential_new_location = AnimalWouldMoveTo(animal_current_location,potential_move)
         
 
+        if collision_detection.CollisionChecking(potential_new_location) == True:
+            return potential_move
+        else:
+            good_moves = [move for move in good_moves if move != potential_move]
+            
 
+        
+def MoveAnimal(animal: object, canvas_data: object) -> None:
+    """Move the animal to new postion - move made by an ammount based on current position """
 
+    animal_moving_to_X , animal_moving_to_Y = animal.animal_move_data.animal_next_move
+    move_X_by , move_Y_by,x2,y2 = ConvertToLongCoords(animal_moving_to_X , animal_moving_to_Y, canvas_data.node_size)
+    canvas_data.canvas.move(animal.animal_core_data.animal_ID,move_X_by , move_Y_by )
+
+def UpdateAnimalData(animal:object) -> None:
+    animal.animal_move_data.animal_location = animal.animal_move_data.animal_moving_to
+    animal.animal_move_data.animal_moving_to = ()
+    animal.animal_move_data.animal_next_move = ()
+    animal.animal_move_data.animals_in_range = []
+
+    pass 
 
 def ConvertToShortCoords(animal,built_canvas, node_size) -> tuple:
     """Convert the long coordinates used by tkinter to x,y  """
