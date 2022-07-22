@@ -11,10 +11,25 @@ def MainFoxAI(foxs: list[object], wolfs: list[object], canvas_data: object) -> N
         fox.animal_move_data.animals_in_range = AISupportingMethods.DetectAnimalsInRange(fox,wolfs)
         fox.animal_movement_algorithm(fox,collision_detection)
         AISupportingMethods.SetAnimalMovingTo(fox)
-        print(fox)
+        AISupportingMethods.MoveAnimal(fox,canvas_data)
+        FoxAlive(fox,foxs,wolfs,canvas_data) 
+        AISupportingMethods.UpdateAnimalData(fox)
+        
 
-        # now need move 
-        # now need update data
+# Needs refactoring
+def FoxAlive(fox: object,foxs: list[object], wolfs: list[object], canvas_data: object) -> bool: 
+    """Check if the fox has been eatten"""
+
+    for fox in foxs:
+        for wolf in wolfs:
+            if wolf.animal_move_data.animal_location == fox.animal_move_data.animal_location:
+                print("Fox dead")
+                foxs.remove(fox)
+                canvas_data.canvas.delete(fox.animal_core_data.animal_ID)
+
+        
+
+    
 
 
 

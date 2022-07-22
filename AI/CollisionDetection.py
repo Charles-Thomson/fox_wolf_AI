@@ -18,7 +18,6 @@ class CollisionDetection:
         """Check for collison with another animal of the same type"""
 
         if potential_move_to in self.Animals_moving_to:
-            print("Check 1 false")
             return False
         else:
             return True
@@ -36,4 +35,5 @@ class CollisionDetection:
 
 
     def MoveList(self) -> None:
+        """Helper fucntion - used as a test point"""
         print(self.Animals_moving_to)
