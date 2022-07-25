@@ -16,6 +16,7 @@ def DetectAnimalsInRange(main_animal: object, other_animals: list[object]) -> li
 
 def SetAnimalMovingTo(animal: object) -> None:
     """Set the animal data for moving to"""
+    
 
     current_location = animal.animal_move_data.animal_location
     move_by = animal.animal_move_data.animal_next_move
@@ -23,31 +24,24 @@ def SetAnimalMovingTo(animal: object) -> None:
     new_coords = tuple(sum(x) for x in zip(current_location,move_by))
     animal.animal_move_data.animal_moving_to = new_coords
 
+
+
 def AnimalWouldMoveTo(animal_current_location: tuple, animal_potential_move: tuple):
     """Helper function used in DeterminBestMove"""
+    
     return tuple(sum(x) for x in zip(animal_current_location,animal_potential_move))
 
 
 # Need to pass the position the animal will move to in here 
 def RebuildDetermineBestMove(animal_current_location: tuple, good_moves: list[tuple], collision_detection: object ) -> tuple:
     """Finding the optimal move that is also allowed"""
-    move_found_flag = False
 
-    if len(good_moves) == 0:
-        return (0,0) # If no good moves return no move
-
-    while move_found_flag == False: 
-
+    while True:
         if good_moves == []:
             return (0,0)
-        print(good_moves, "In the renag issue bs")
-        
         potential_move = collections.Counter(good_moves).most_common()[0][0]
-    
-        
         potential_new_location = AnimalWouldMoveTo(animal_current_location,potential_move)
         
-
         if collision_detection.CollisionChecking(potential_new_location) == True:
             return potential_move
         else:

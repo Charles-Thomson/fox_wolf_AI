@@ -11,6 +11,8 @@ def MainWolfAI(wolfs: list[object], foxs: list[object],canvas_data: object) -> N
         wolf.animal_movement_algorithm(wolf,collision_detection,canvas_data)
         AISupportingMethods.SetAnimalMovingTo(wolf)
         AISupportingMethods.MoveAnimal(wolf,canvas_data)
+        print(wolf)
         AISupportingMethods.UpdateAnimalData(wolf)
+    
         
     

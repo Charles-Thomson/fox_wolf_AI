@@ -25,22 +25,17 @@ class main():
         NewFoxAI.MainFoxAI(self.foxs, self.wolfs,self.canvas_data)
         NewWolfAI.MainWolfAI(self.wolfs,self.foxs,self.canvas_data)
         
+        
 
         self.canvas_data.canvas.after(2000,self.run)
 
 
-    
-
-    
-
-
         #  Do next:  
-        # A* implemented for Wolf - need to change the returning 
-        # Issue to in DetermineBestMove again, need to clean up
-        # A* returns one move, maybe refactor around this idea ? 
-        #
+        # Refactoring the path fining algorithms to simplify the collision detection <- may moveaway for passing the collision detection object 
+        # A* not eatting the fox/not moving onto it
+        # Refactor A* to prioritise the cosest prey 
 
-        # start looking at reverse A* 
+        # Issue to in DetermineBestMove again, need to clean up
 
 
 if __name__ == "__main__":

@@ -52,7 +52,12 @@ def GenerateFoxs() -> list:
                                         animal_sight_range = 4, 
                                         animal_draw_colour = "blue")
 
-    return [fox_A]
+    fox_B = NewAnimalDataClass.SpawnAnimal(animal_type = NewAnimalDataClass.AnimalType.FOX,   
+                                        animal_location = (5,5), 
+                                        animal_sight_range = 4, 
+                                        animal_draw_colour = "blue")
+
+    return [fox_A,fox_B]
 
 def GenerateWolfs() -> list:
     """Generate each wolf and return as list"""

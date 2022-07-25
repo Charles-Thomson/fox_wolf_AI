@@ -5,7 +5,6 @@ from AI import AISupportingMethods
 
 
 def BasicMovmentAlgorithm(self: object,collision_detection: object) -> None:
-    print("In the alg")
     good_moves = []
     bad_moves = []
     fox_coord_X, fox_coord_Y = self.animal_move_data.animal_location
