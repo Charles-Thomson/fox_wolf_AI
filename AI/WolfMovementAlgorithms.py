@@ -62,6 +62,12 @@ class MyNode():
 
     
 def AStartMovmentAlgorithm(wolf:object ,collision_detection: object,canvas_data: object) -> None:
+    """A* movment algorithm for the wolf"""
+
+    if wolf.animal_move_data.animals_in_range == []:
+        wolf.animal_move_data.animal_next_move = [(0,0)] # No Move 
+        
+
     number_of_rows = canvas_data.number_of_rows
     number_of_columns = canvas_data.number_of_columns
     # G = Distance from current node to star node
@@ -71,7 +77,7 @@ def AStartMovmentAlgorithm(wolf:object ,collision_detection: object,canvas_data:
     start_node = MyNode(None,wolf.animal_move_data.animal_location)
     start_node.g = start_node.h = start_node.f = 0
 
-    end_node = MyNode(None, wolf.animal_move_data.animals_in_range[0])
+    end_node = MyNode(None, wolf.animal_move_data.animals_in_range[0]) # <- Only taking the first in range
     end_node.g = end_node.h = end_node.f = 0
 
     open_list = []
@@ -113,13 +119,12 @@ def AStartMovmentAlgorithm(wolf:object ,collision_detection: object,canvas_data:
             while current is not None:
                 path.append(current.location)
                 current = current.parent
+            path.reverse()
+            
             wolf_current_location = wolf.animal_move_data.animal_location
-            good_moves = [(wolf_current_location[0] - path[1][0], wolf_current_location[1] - path[1][0])]
-            print("goo movs in wolf:", good_moves)
-            wolf.animal_move_data.animal_next_move = AISupportingMethods.RebuildDetermineBestMove(wolf_current_location,good_moves,collision_detection) # Need to work it into here!!
-
-            #return path[::-1] # return the path to the end node
-
+            good_moves = [((path[1][0] - wolf_current_location[0] ), (path[1][1] -  wolf_current_location[1]))]
+            wolf.animal_move_data.animal_next_move = AISupportingMethods.RebuildDetermineBestMove(wolf_current_location,good_moves,collision_detection) 
+            break
 
         # Generate Children
         children = []
@@ -128,12 +133,17 @@ def AStartMovmentAlgorithm(wolf:object ,collision_detection: object,canvas_data:
         adjacent_squares = [(1,1),(1,0),(1,-1),(0,-1),(-1,0),(-1,-1),(-1,1),(0,1)]
         
         for new_position in adjacent_squares:
-            # Postion of the new node 
+            # Location of the new node 
             node_position = (current_node.location[0] + new_position[0], current_node.location[1] + new_position[1])
         
             # Check if new postion in range
             if node_position[0] > number_of_rows - 1 or node_position[0] < 0 or node_position[1] > number_of_columns or node_position[1] < 0:
                 continue # break out the loop 
+
+
+            # Collision detection here <--
+            if collision_detection.AStartCollisionChecking(node_position) == False:
+                continue
 
             # Make the new Node 
             new_node = MyNode(parent = current_node, location = node_position)
@@ -164,11 +174,6 @@ def AStartMovmentAlgorithm(wolf:object ,collision_detection: object,canvas_data:
             open_list.append(child)
         
 
-
-
-
-
-    
 
 if __name__ == '__main__':
     path = AStartMovmentAlgorithm((5,5), (10,10))
