@@ -11,8 +11,8 @@ class AnimalType(Enum):
     WOLF = "Wolf"
 
 class WolfMovementAlgorithm(Enum):
-    BASIC = WolfMovementAlgorithms.BasicMovmentAlgorithm
-    ASTAR = WolfMovementAlgorithms.AStartMovmentAlgorithm
+    BASIC = WolfMovementAlgorithms.BasicMovementAlgorithm
+    ASTAR = WolfMovementAlgorithms.AStarMovementAlgorithm
 
 class FoxMovementAlgorithm(Enum):
     BASIC = FoxMovementAlgorithms.BasicMovmentAlgorithm

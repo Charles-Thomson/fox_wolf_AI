@@ -27,13 +27,15 @@ class main():
         
         
 
-        self.canvas_data.canvas.after(2000,self.run)
+        self.canvas_data.canvas.after(5000,self.run)
 
 
         #  Do next:  
-        # Refactoring the path fining algorithms to simplify the collision detection <- may moveaway for passing the collision detection object 
-        # A* not eatting the fox/not moving onto it
-        # Refactor A* to prioritise the cosest prey 
+        # Still have bugs in A*
+        # Targeting is not working with prey higher to the left
+        # Some times make very odd jumps on start ?
+        # May need to move each path finding to new module as its messy af
+        # A* looks like a freking mess currently
 
         # Issue to in DetermineBestMove again, need to clean up
 

@@ -48,12 +48,12 @@ def GenerateFoxs() -> list:
     """Generate each fox and return as list"""
     
     fox_A = NewAnimalDataClass.SpawnAnimal(animal_type = NewAnimalDataClass.AnimalType.FOX,   
-                                        animal_location = (5,6), 
+                                        animal_location = (9,9), 
                                         animal_sight_range = 4, 
                                         animal_draw_colour = "blue")
 
     fox_B = NewAnimalDataClass.SpawnAnimal(animal_type = NewAnimalDataClass.AnimalType.FOX,   
-                                        animal_location = (5,5), 
+                                        animal_location = (7,4), 
                                         animal_sight_range = 4, 
                                         animal_draw_colour = "blue")
 
@@ -63,22 +63,22 @@ def GenerateWolfs() -> list:
     """Generate each wolf and return as list"""
 
     wolf_A = NewAnimalDataClass.SpawnAnimal(animal_type= NewAnimalDataClass.AnimalType.WOLF, 
-                                         animal_location=(7,5),
+                                         animal_location=(3,3),
                                          animal_sight_range=4,
                                          animal_draw_colour = "red")
                                          
     wolf_B = NewAnimalDataClass.SpawnAnimal(animal_type= NewAnimalDataClass.AnimalType.WOLF, 
-                                         animal_location=(2,5),
+                                         animal_location=(5,7),
                                          animal_sight_range=4,
                                          animal_draw_colour = "red")
 
     wolf_C = NewAnimalDataClass.SpawnAnimal(animal_type= NewAnimalDataClass.AnimalType.WOLF, 
-                                         animal_location=(7,5),
+                                         animal_location=(11,9),
                                          animal_sight_range=4,
                                          animal_draw_colour = "red")
                                          
     wolf_D = NewAnimalDataClass.SpawnAnimal(animal_type= NewAnimalDataClass.AnimalType.WOLF, 
-                                         animal_location=(2,5),
+                                         animal_location=(11,11),
                                          animal_sight_range=4,
                                          animal_draw_colour = "red")
     return [wolf_A,wolf_B,wolf_C,wolf_D]

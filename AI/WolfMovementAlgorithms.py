@@ -1,6 +1,5 @@
-from dataclasses import dataclass, field
-from enum import Enum
-from tkinter import Canvas
+
+from dataclasses import dataclass
 from AI import AISupportingMethods
 from abc import ABC, abstractmethod
 
@@ -8,18 +7,14 @@ from abc import ABC, abstractmethod
 class MovementAlgorithm(ABC):
 
     @abstractmethod
-    def Algorithm(self) -> None:
+    def Algorithm() -> None:
         """Algorithm to find the next move"""
         pass
 
-    @abstractmethod
-    def CollisionCheck(moving_to: tuple) -> bool:
-        """Call to collision check to see if move possible"""
-        pass
 
 
 
-def BasicMovmentAlgorithm(wolf: object ,collision_detection: object, canvas_data: object) -> None: 
+def BasicMovementAlgorithm(wolf: object ,collision_detection: object, canvas_data: object) -> None: 
     """Basic process to determin best move for the animal"""
     good_moves = []
     wolf_coord_X, wolf_coord_Y = wolf.animal_move_data.animal_location
@@ -46,7 +41,11 @@ def BasicMovmentAlgorithm(wolf: object ,collision_detection: object, canvas_data
     wolf.animal_move_data.animal_next_move = AISupportingMethods.RebuildDetermineBestMove(wolf_current_location,good_moves,collision_detection) # Need to work it into here!!
 
 
+
+
+        
 class MyNode(): 
+    """Nodes used to in relation to the AStart algrithm """
 
     def __init__(self, parent = None, location = None):
         self.parent = parent
@@ -60,24 +59,38 @@ class MyNode():
     def __eq__(self, other):
         return self.location == other.location
 
-    
-def AStartMovmentAlgorithm(wolf:object ,collision_detection: object,canvas_data: object) -> None:
+def AStarTargetPriority(animal_location: tuple, target_locations: list[tuple]) -> tuple:
+    """Find the highest priority target based on the distance from the hunting animal"""
+    best_target = (0,0)
+    target_value = 50  # set to a safe top end value
+
+    for target in target_locations:
+        value = abs(animal_location[0] - target[0]) + (animal_location[1] - target[1]) # Not taking diagonal movments into consideration
+        if target_value > value:
+            best_target = target
+            target_value = value 
+
+    return best_target 
+
+def AStarMovementAlgorithm(wolf: object ,collision_detection: object,canvas_data: object) -> None:
     """A* movment algorithm for the wolf"""
 
-    if wolf.animal_move_data.animals_in_range == []:
+    animals_in_range = wolf.animal_move_data.animals_in_range
+
+    if animals_in_range == []:
         wolf.animal_move_data.animal_next_move = [(0,0)] # No Move 
         
-
     number_of_rows = canvas_data.number_of_rows
     number_of_columns = canvas_data.number_of_columns
-    # G = Distance from current node to star node
-    # H = Estimated distance from current node to the end node
-    # F = total cost of the node (G + H)
 
-    start_node = MyNode(None,wolf.animal_move_data.animal_location)
+    animal_location = wolf.animal_move_data.animal_location
+    target = AStarTargetPriority(animal_location, animals_in_range) # <-- target not updating
+
+    print(animal_location, target)
+    start_node = MyNode(None,animal_location)
     start_node.g = start_node.h = start_node.f = 0
 
-    end_node = MyNode(None, wolf.animal_move_data.animals_in_range[0]) # <- Only taking the first in range
+    end_node = MyNode(None, target)    # <- Only taking the first in range
     end_node.g = end_node.h = end_node.f = 0
 
     open_list = []
@@ -90,10 +103,7 @@ def AStartMovmentAlgorithm(wolf:object ,collision_detection: object,canvas_data:
         # Get the current node
         current_node = open_list[0]
         current_index = 0
-        
-
     
-
         # Check to see if the value(f) of the a open_list node < current_node. 
         # Set current_node to be the open_list node
         for index, item in enumerate(open_list):
@@ -106,13 +116,9 @@ def AStartMovmentAlgorithm(wolf:object ,collision_detection: object,canvas_data:
         open_list.pop(current_index)
         closed_list.append(current_node)
         
-
         # Check to see if the end node has been found
         # If so return the path to he end
-        # I will need just the first step in this path
-
-        # This is the return <- check collision and do set in here
-        
+        # clean this up
         if current_node == end_node:
             path = []
             current = current_node
@@ -123,6 +129,7 @@ def AStartMovmentAlgorithm(wolf:object ,collision_detection: object,canvas_data:
             
             wolf_current_location = wolf.animal_move_data.animal_location
             good_moves = [((path[1][0] - wolf_current_location[0] ), (path[1][1] -  wolf_current_location[1]))]
+            #print(path, animal_location,good_moves)
             wolf.animal_move_data.animal_next_move = AISupportingMethods.RebuildDetermineBestMove(wolf_current_location,good_moves,collision_detection) 
             break
 
@@ -139,7 +146,6 @@ def AStartMovmentAlgorithm(wolf:object ,collision_detection: object,canvas_data:
             # Check if new postion in range
             if node_position[0] > number_of_rows - 1 or node_position[0] < 0 or node_position[1] > number_of_columns or node_position[1] < 0:
                 continue # break out the loop 
-
 
             # Collision detection here <--
             if collision_detection.AStartCollisionChecking(node_position) == False:
@@ -160,10 +166,12 @@ def AStartMovmentAlgorithm(wolf:object ,collision_detection: object,canvas_data:
                     continue # break the loop
 
             # Set the node values
+            # G = Distance from current node to star node
+            # H = Estimated distance from current node to the end node
+            # F = total cost of the node (G + H)
             child.g = current_node.g + 1
             child.h = (( child.location[0] - end_node.location[0]) ** 2) + ((child.location[1] - end_node.location[1]) ** 2)
             child.f = child.g + child.h
-
 
             # Check for child in the open list
             for open_child in open_list:
@@ -172,9 +180,3 @@ def AStartMovmentAlgorithm(wolf:object ,collision_detection: object,canvas_data:
 
             # Add the child to the open list
             open_list.append(child)
-        
-
-
-if __name__ == '__main__':
-    path = AStartMovmentAlgorithm((5,5), (10,10))
-    print(path)
