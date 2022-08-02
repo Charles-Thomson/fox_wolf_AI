@@ -1,8 +1,8 @@
 import tkinter as tk
 from tkinter import Canvas
 from random import randrange
-from AI import AISupportingMethods
-import NewAnimalDataClass
+from Animals.SharedFunctunality import HelperFuntions
+import Animals.SharedFunctunality.NewAnimalDataClass as NewAnimalDataClass
 import NewBoard
 
 def main(node_size: int,canvas_height: int ,canvas_width: int) -> Canvas:
@@ -48,7 +48,7 @@ def GenerateFoxs() -> list:
     """Generate each fox and return as list"""
     
     fox_A = NewAnimalDataClass.SpawnAnimal(animal_type = NewAnimalDataClass.AnimalType.FOX,   
-                                        animal_location = (12,12), 
+                                        animal_location = (0,0), 
                                         animal_sight_range = 4, 
                                         animal_draw_colour = "blue")
 
@@ -57,18 +57,18 @@ def GenerateFoxs() -> list:
                                         animal_sight_range = 4, 
                                         animal_draw_colour = "blue")
 
-    return [fox_A,fox_B]
+    return [fox_A]
 
 def GenerateWolfs() -> list:
     """Generate each wolf and return as list"""
 
     wolf_A = NewAnimalDataClass.SpawnAnimal(animal_type= NewAnimalDataClass.AnimalType.WOLF, 
-                                         animal_location=(5,5),
+                                         animal_location=(2,0),
                                          animal_sight_range=4,
                                          animal_draw_colour = "red")
                                          
     wolf_B = NewAnimalDataClass.SpawnAnimal(animal_type= NewAnimalDataClass.AnimalType.WOLF, 
-                                         animal_location=(5,7),
+                                         animal_location=(0,2),
                                          animal_sight_range=4,
                                          animal_draw_colour = "red")
 
@@ -81,7 +81,7 @@ def GenerateWolfs() -> list:
                                          animal_location=(11,11),
                                          animal_sight_range=4,
                                          animal_draw_colour = "red")
-    return [wolf_A,wolf_B,wolf_C,wolf_D]
+    return [wolf_A,wolf_B]
 
 
 def DrawAnimalsOnCanvas(built_canvas: Canvas, animals: list[object]) -> None:
@@ -89,7 +89,7 @@ def DrawAnimalsOnCanvas(built_canvas: Canvas, animals: list[object]) -> None:
 
     for animal in animals:
         coord_x, coord_y = animal.animal_core_data.animal_spawn_location
-        x1,y1,x2,y2 = AISupportingMethods.ConvertToLongCoords(coord_x, coord_y, node_size = 20)
+        x1,y1,x2,y2 = HelperFuntions.ConvertToLongCoords(coord_x, coord_y, node_size = 20)
 
         # Change to a set animal data method 
         animal.animal_core_data.animal_ID = built_canvas.create_rectangle(x1,y1,x2,y2, fill=animal.animal_core_data.animal_draw_colour)

@@ -28,6 +28,7 @@ class CollisionDetection:
         """Check for collison with another animal of the same type"""
 
         if potential_move_to in self.Animals_moving_to:
+            
             return False
         else:
             return True

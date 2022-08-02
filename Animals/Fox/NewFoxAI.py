@@ -1,6 +1,6 @@
 import tkinter as tk
-from AI import AISupportingMethods
-from AI import CollisionDetection
+from Animals.SharedFunctunality import HelperFuntions
+from Animals.SharedFunctunality import CollisionDetection
 import collections
 
 
@@ -8,12 +8,12 @@ import collections
 def MainFoxAI(foxs: list[object], wolfs: list[object], canvas_data: object) -> None:
     collision_detection = CollisionDetection.CollisionDetection(canvas_data)
     for fox in foxs:
-        fox.animal_move_data.animals_in_range = AISupportingMethods.DetectAnimalsInRange(fox,wolfs)
+        fox.animal_move_data.animals_in_range = HelperFuntions.DetectAnimalsInRange(fox,wolfs)
         fox.animal_movement_algorithm(fox,collision_detection)
-        AISupportingMethods.SetAnimalMovingTo(fox)
-        AISupportingMethods.MoveAnimal(fox,canvas_data)
+        HelperFuntions.SetAnimalMovingTo(fox)
+        HelperFuntions.MoveAnimal(fox,canvas_data)
         FoxAlive(fox,foxs,wolfs,canvas_data) 
-        AISupportingMethods.UpdateAnimalData(fox)
+        HelperFuntions.UpdateAnimalData(fox)
         
 
 # Needs refactoring

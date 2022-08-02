@@ -2,8 +2,13 @@ from dataclasses import dataclass, field
 from enum import Enum
 from typing import Protocol
 from dataclasses import dataclass
-from AI import FoxMovementAlgorithms
-from AI import WolfMovementAlgorithms
+from Animals import Fox
+from Animals import Wolf
+
+from Animals.Fox import FoxMovementAlgorithms
+from Animals.Wolf.WolfMovmentAlgorithms import WolfMovementAlgorithms
+
+
 
 class AnimalType(Enum):
     """Enumeration of the animal types"""

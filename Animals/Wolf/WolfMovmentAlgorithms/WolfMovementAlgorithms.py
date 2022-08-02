@@ -1,21 +1,11 @@
 
 from dataclasses import dataclass
-from AI import AISupportingMethods
-from abc import ABC, abstractmethod
-
-# Perhaps implement at later stage ? 
-class MovementAlgorithm(ABC):
-
-    @abstractmethod
-    def Algorithm() -> None:
-        """Algorithm to find the next move"""
-        pass
-
-
+from Animals.SharedFunctunality import HelperFuntions
 
 
 def BasicMovementAlgorithm(wolf: object ,collision_detection: object, canvas_data: object) -> None: 
     """Basic process to determin best move for the animal"""
+
     good_moves = []
     wolf_coord_X, wolf_coord_Y = wolf.animal_move_data.animal_location
 
@@ -38,7 +28,7 @@ def BasicMovementAlgorithm(wolf: object ,collision_detection: object, canvas_dat
 
     
     wolf_current_location = (wolf_coord_X, wolf_coord_Y)
-    wolf.animal_move_data.animal_next_move = AISupportingMethods.RebuildDetermineBestMove(wolf_current_location,good_moves,collision_detection) # Need to work it into here!!
+    wolf.animal_move_data.animal_next_move = HelperFuntions.RebuildDetermineBestMove(wolf_current_location,good_moves,collision_detection) # Need to work it into here!!
 
 
 
@@ -61,7 +51,8 @@ class MyNode():
 
 def AStarTargetPriority(animal_location: tuple, target_locations: list[tuple]) -> tuple:
     """Find the highest priority target based on the distance from the hunting animal"""
-    best_target = (0,0)
+
+    best_target = None
     target_value = 50  # set to a safe top end value
 
     for target in target_locations:
@@ -78,15 +69,15 @@ def AStarMovementAlgorithm(wolf: object ,collision_detection: object,canvas_data
     animals_in_range = wolf.animal_move_data.animals_in_range
 
     if animals_in_range == []:
-        wolf.animal_move_data.animal_next_move = [(0,0)] # No Move 
+        wolf.animal_move_data.animal_next_move = (0,0) # No Move if nothing in range
+        return
         
     number_of_rows = canvas_data.number_of_rows
     number_of_columns = canvas_data.number_of_columns
 
     animal_location = wolf.animal_move_data.animal_location
     target = AStarTargetPriority(animal_location, animals_in_range) # <-- target not updating
-
-    print(animal_location, target)
+    
     start_node = MyNode(None,animal_location)
     start_node.g = start_node.h = start_node.f = 0
 
@@ -115,11 +106,19 @@ def AStarMovementAlgorithm(wolf: object ,collision_detection: object,canvas_data
         # Add to closed list
         open_list.pop(current_index)
         closed_list.append(current_node)
+
+        # Guard for maximum recursion depth 
+        # Can only check upto Animal sight range ^ 3 No* nodes
+        if len(closed_list) > (wolf.animal_core_data.animal_sight_range ** 3) :
+            print("no move found based on recursion depth")
+            wolf.animal_move_data.animal_next_move = (0,0)
+            break
         
         # Check to see if the end node has been found
         # If so return the path to he end
         # clean this up
         if current_node == end_node:
+            print("Found path")
             path = []
             current = current_node
             while current is not None:
@@ -128,9 +127,10 @@ def AStarMovementAlgorithm(wolf: object ,collision_detection: object,canvas_data
             path.reverse()
             
             wolf_current_location = wolf.animal_move_data.animal_location
-            good_moves = [((path[1][0] - wolf_current_location[0] ), (path[1][1] -  wolf_current_location[1]))]
-            #print(path, animal_location,good_moves)
-            wolf.animal_move_data.animal_next_move = AISupportingMethods.RebuildDetermineBestMove(wolf_current_location,good_moves,collision_detection) 
+            good_move = [((path[1][0] - wolf_current_location[0] ), (path[1][1] -  wolf_current_location[1]))]
+            
+            wolf.animal_move_data.animal_next_move = HelperFuntions.RebuildDetermineBestMove(wolf_current_location,good_move,collision_detection) 
+            print(wolf)
             break
 
         # Generate Children

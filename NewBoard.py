@@ -16,6 +16,7 @@ def BuildCanvas(canvas_height: int, canvas_width: int, node_size: int) -> Canvas
     """Building the canvas and returing as part of board data"""
 
     canvas = Canvas(width = canvas_width, height= canvas_height, bg = "white")
+    
     canvas.pack(pady = 20)
     number_of_rows, number_of_columns = CalculateRowsAndColumns(canvas_height, canvas_height, node_size)
     

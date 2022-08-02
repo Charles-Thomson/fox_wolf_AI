@@ -1,6 +1,5 @@
-import abc
 from enum import Enum
-from AI import AISupportingMethods
+from Animals.SharedFunctunality import HelperFuntions
 
 
 
@@ -53,7 +52,7 @@ def BasicMovmentAlgorithm(self: object,collision_detection: object) -> None:
             
     good_moves = [move for move in good_moves if move not in bad_moves]
     fox_current_location = (fox_coord_X, fox_coord_Y)
-    self.animal_move_data.animal_next_move = AISupportingMethods.RebuildDetermineBestMove(fox_current_location,good_moves, collision_detection)
+    self.animal_move_data.animal_next_move = HelperFuntions.RebuildDetermineBestMove(fox_current_location,good_moves, collision_detection)
 
 
 

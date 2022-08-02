@@ -38,14 +38,19 @@ def RebuildDetermineBestMove(animal_current_location: tuple, good_moves: list[tu
 
     while True:
         if good_moves == []:
+            print("Returning no move")
             return (0,0)
+            break
         potential_move = collections.Counter(good_moves).most_common()[0][0]
         potential_new_location = AnimalWouldMoveTo(animal_current_location,potential_move)
         
         if collision_detection.CollisionChecking(potential_new_location) == True:
             return potential_move
         else:
+            
             good_moves = [move for move in good_moves if move != potential_move]
+            print(good_moves)
+            
             
 
         
