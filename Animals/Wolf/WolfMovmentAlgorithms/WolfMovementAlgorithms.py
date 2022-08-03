@@ -35,7 +35,7 @@ def BasicMovementAlgorithm(wolf: object ,collision_detection: object, canvas_dat
 
         
 class MyNode(): 
-    """Nodes used to in relation to the AStart algrithm """
+    """Nodes used in the AStart algrithm """
 
     def __init__(self, parent = None, location = None):
         self.parent = parent
@@ -110,7 +110,7 @@ def AStarMovementAlgorithm(wolf: object ,collision_detection: object,canvas_data
         # Guard for maximum recursion depth 
         # Can only check upto Animal sight range ^ 3 No* nodes
         if len(closed_list) > (wolf.animal_core_data.animal_sight_range ** 3) :
-            print("no move found based on recursion depth")
+            #print("no move found based on recursion depth")
             wolf.animal_move_data.animal_next_move = (0,0)
             break
         
@@ -130,7 +130,7 @@ def AStarMovementAlgorithm(wolf: object ,collision_detection: object,canvas_data
             good_move = [((path[1][0] - wolf_current_location[0] ), (path[1][1] -  wolf_current_location[1]))]
             
             wolf.animal_move_data.animal_next_move = HelperFuntions.RebuildDetermineBestMove(wolf_current_location,good_move,collision_detection) 
-            print(wolf)
+            #print(wolf)
             break
 
         # Generate Children
@@ -144,7 +144,7 @@ def AStarMovementAlgorithm(wolf: object ,collision_detection: object,canvas_data
             node_position = (current_node.location[0] + new_position[0], current_node.location[1] + new_position[1])
         
             # Check if new postion in range
-            if node_position[0] > number_of_rows - 1 or node_position[0] < 0 or node_position[1] > number_of_columns or node_position[1] < 0:
+            if node_position[0] > number_of_rows - 1 or node_position[0] < 0 or node_position[1] > number_of_columns - 1 or node_position[1] < 0:
                 continue # break out the loop 
 
             # Collision detection here <--
@@ -161,14 +161,16 @@ def AStarMovementAlgorithm(wolf: object ,collision_detection: object,canvas_data
         for child in children:
             
             # check if child in closed_list
+            # If so the end has been found
             for closed_child in closed_list:
                 if child.location == closed_child.location:
                     continue # break the loop
 
             # Set the node values
-            # G = Distance from current node to star node
+            # G = Distance from current node to start node
             # H = Estimated distance from current node to the end node
             # F = total cost of the node (G + H)
+            
             child.g = current_node.g + 1
             child.h = (( child.location[0] - end_node.location[0]) ** 2) + ((child.location[1] - end_node.location[1]) ** 2)
             child.f = child.g + child.h

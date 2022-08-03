@@ -26,8 +26,7 @@ class main():
         NewFoxAI.MainFoxAI(self.foxs, self.wolfs,self.canvas_data)
         NewWolfAI.MainWolfAI(self.wolfs,self.foxs,self.canvas_data)
         
-        self.canvas_data.canvas.after(3000,self.run)
-
+        #self.canvas_data.canvas.after(3000,self.run)
 
         #  Do next:  
         #  Implement Fox reverse A* 

@@ -48,7 +48,7 @@ def GenerateFoxs() -> list:
     """Generate each fox and return as list"""
     
     fox_A = NewAnimalDataClass.SpawnAnimal(animal_type = NewAnimalDataClass.AnimalType.FOX,   
-                                        animal_location = (0,0), 
+                                        animal_location = (3,3), 
                                         animal_sight_range = 4, 
                                         animal_draw_colour = "blue")
 
@@ -63,7 +63,7 @@ def GenerateWolfs() -> list:
     """Generate each wolf and return as list"""
 
     wolf_A = NewAnimalDataClass.SpawnAnimal(animal_type= NewAnimalDataClass.AnimalType.WOLF, 
-                                         animal_location=(2,0),
+                                         animal_location=(5,5),
                                          animal_sight_range=4,
                                          animal_draw_colour = "red")
                                          
@@ -81,7 +81,7 @@ def GenerateWolfs() -> list:
                                          animal_location=(11,11),
                                          animal_sight_range=4,
                                          animal_draw_colour = "red")
-    return [wolf_A,wolf_B]
+    return [wolf_A]
 
 
 def DrawAnimalsOnCanvas(built_canvas: Canvas, animals: list[object]) -> None:

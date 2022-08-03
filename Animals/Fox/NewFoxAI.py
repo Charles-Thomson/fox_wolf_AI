@@ -9,11 +9,11 @@ def MainFoxAI(foxs: list[object], wolfs: list[object], canvas_data: object) -> N
     collision_detection = CollisionDetection.CollisionDetection(canvas_data)
     for fox in foxs:
         fox.animal_move_data.animals_in_range = HelperFuntions.DetectAnimalsInRange(fox,wolfs)
-        fox.animal_movement_algorithm(fox,collision_detection)
-        HelperFuntions.SetAnimalMovingTo(fox)
-        HelperFuntions.MoveAnimal(fox,canvas_data)
-        FoxAlive(fox,foxs,wolfs,canvas_data) 
-        HelperFuntions.UpdateAnimalData(fox)
+        fox.animal_movement_algorithm(fox,collision_detection,canvas_data)
+        #HelperFuntions.SetAnimalMovingTo(fox)
+        #HelperFuntions.MoveAnimal(fox,canvas_data)
+        #FoxAlive(fox,foxs,wolfs,canvas_data) 
+        #HelperFuntions.UpdateAnimalData(fox)
         
 
 # Needs refactoring

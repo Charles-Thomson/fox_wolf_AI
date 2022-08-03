@@ -21,6 +21,7 @@ class WolfMovementAlgorithm(Enum):
 
 class FoxMovementAlgorithm(Enum):
     BASIC = FoxMovementAlgorithms.BasicMovmentAlgorithm
+    ASTAR = FoxMovementAlgorithms.ReversedAStartMovmentAlgorithm
 
 @dataclass
 class AnimalCoreData:
@@ -65,7 +66,7 @@ class Fox:
 
 def SpawnAnimal(animal_type: AnimalType, animal_location: tuple, animal_sight_range: int, animal_draw_colour: str) -> Fox:
     if animal_type == animal_type.FOX:
-        return Fox(animal_core_data= AnimalCoreData(0,animal_type.FOX,animal_sight_range,animal_location,animal_draw_colour), animal_move_data= AnimalMoveData(), animal_movement_algorithm=FoxMovementAlgorithm.BASIC)
+        return Fox(animal_core_data= AnimalCoreData(0,animal_type.FOX,animal_sight_range,animal_location,animal_draw_colour), animal_move_data= AnimalMoveData(), animal_movement_algorithm=FoxMovementAlgorithm.ASTAR)
 
     if animal_type == animal_type.WOLF:
         return Fox(animal_core_data= AnimalCoreData(0,animal_type.WOLF,animal_sight_range,animal_location,animal_draw_colour), animal_move_data= AnimalMoveData(), animal_movement_algorithm=WolfMovementAlgorithm.ASTAR)
