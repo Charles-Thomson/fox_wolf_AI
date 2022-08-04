@@ -1,12 +1,16 @@
 from dataclasses import dataclass, field 
 from enum import Enum
 from typing import Protocol
-from dataclasses import dataclass
-from Animals import Fox
-from Animals import Wolf
 
-from Animals.Fox import FoxMovementAlgorithms
-from Animals.Wolf.WolfMovmentAlgorithms import WolfMovementAlgorithms
+from Animals.Wolf.WolfMovementAlgorithms import Basic as WolfBasic
+from Animals.Wolf.WolfMovementAlgorithms import AStar_Full
+
+from Animals.Fox.FoxMovementAlgorithms import Basic as FoxBasic
+from Animals.Fox.FoxMovementAlgorithms import AStar_MoveReversed
+from Animals.Fox.FoxMovementAlgorithms import AStar_Refined
+
+
+
 
 
 
@@ -16,12 +20,13 @@ class AnimalType(Enum):
     WOLF = "Wolf"
 
 class WolfMovementAlgorithm(Enum):
-    BASIC = WolfMovementAlgorithms.BasicMovementAlgorithm
-    ASTAR = WolfMovementAlgorithms.AStarMovementAlgorithm
+    BASIC = WolfBasic.BasicMovementAlgorithm
+    ASTAR = AStar_Full.AStarMovementAlgorithm
 
 class FoxMovementAlgorithm(Enum):
-    BASIC = FoxMovementAlgorithms.BasicMovmentAlgorithm
-    ASTAR = FoxMovementAlgorithms.ReversedAStartMovmentAlgorithm
+    BASIC = FoxBasic.BasicMovmentAlgorithm
+    ASTAR = AStar_MoveReversed.ReversedAStartMovmentAlgorithm
+    ASTARR = AStar_Refined.Algorithm
 
 @dataclass
 class AnimalCoreData:
@@ -66,7 +71,7 @@ class Fox:
 
 def SpawnAnimal(animal_type: AnimalType, animal_location: tuple, animal_sight_range: int, animal_draw_colour: str) -> Fox:
     if animal_type == animal_type.FOX:
-        return Fox(animal_core_data= AnimalCoreData(0,animal_type.FOX,animal_sight_range,animal_location,animal_draw_colour), animal_move_data= AnimalMoveData(), animal_movement_algorithm=FoxMovementAlgorithm.ASTAR)
+        return Fox(animal_core_data= AnimalCoreData(0,animal_type.FOX,animal_sight_range,animal_location,animal_draw_colour), animal_move_data= AnimalMoveData(), animal_movement_algorithm=FoxMovementAlgorithm.ASTARR)
 
     if animal_type == animal_type.WOLF:
         return Fox(animal_core_data= AnimalCoreData(0,animal_type.WOLF,animal_sight_range,animal_location,animal_draw_colour), animal_move_data= AnimalMoveData(), animal_movement_algorithm=WolfMovementAlgorithm.ASTAR)

@@ -1,60 +1,13 @@
 from dataclasses import dataclass
-from enum import Enum
-from Animals.SharedFunctunality import HelperFuntions
+from Animals.SharedFunctunality import HelperFunctions
 
+"""
+    AStar algorithm with the first move of the path inverted to move away from
+    a target. 
 
+    Basic implementation of the Algorithm
 
-def BasicMovmentAlgorithm(self: object,collision_detection: object, canvas_data: object) -> None:
-    good_moves = []
-    bad_moves = []
-    fox_coord_X, fox_coord_Y = self.animal_move_data.animal_location
-
-    for coord_X, coord_Y in self.animal_move_data.animals_in_range:
-        # +x
-        if coord_X > fox_coord_X and coord_Y == fox_coord_Y:
-            bad_moves.extend([(1,0)])
-            good_moves.extend([(-1,0),(-1,-1),(-1,1)])
-            
-        # -x
-        if coord_X < fox_coord_X and coord_Y == fox_coord_Y:
-            bad_moves.extend([(-1,0)])
-            good_moves.extend([(1,0)])
-            
-        # +y
-        if coord_X == fox_coord_X and coord_Y > fox_coord_Y:
-            bad_moves.extend([(0,1)])
-            good_moves.extend([(0,-1)])
-            
-        # -y
-        if coord_X == fox_coord_X and coord_Y < fox_coord_Y:
-            bad_moves.extend([(0,-1)])
-            good_moves.extend([(0,1)])
-            
-        # +x +y
-        if coord_X > fox_coord_X and coord_Y > fox_coord_Y:
-            bad_moves.extend([(1,1)]) 
-            good_moves.extend([(-1,-1),(-1,0),(0,-1)])
-            
-        # -x -y
-        if coord_X < fox_coord_X and coord_Y < fox_coord_Y:
-            bad_moves.extend([(-1,-1)])
-            
-            good_moves.extend([(1,1),(1,0),(0,1)])
-            
-        # +x -y
-        if coord_X > fox_coord_X and coord_Y < fox_coord_Y:
-            bad_moves.extend([(1,-1)]) 
-            good_moves.extend([(-1,1),(-1,0),(0,1)])
-            
-        # -x +y
-        if coord_X < fox_coord_X and coord_Y > fox_coord_Y:
-            bad_moves.extend([(-1,1)])
-            good_moves.extend([(1,-1),(1,0),(0,-1)])
-            
-    good_moves = [move for move in good_moves if move not in bad_moves]
-    fox_current_location = (fox_coord_X, fox_coord_Y)
-    self.animal_move_data.animal_next_move = HelperFuntions.RebuildDetermineBestMove(fox_current_location,good_moves, collision_detection)
-
+"""
 
 
 class MyNode():
@@ -77,7 +30,7 @@ def ReversedAStartTargetPriority(animal_location: tuple, target_locations: list[
 # This can be improved
 def ReversedAStarMoveInverter(move: tuple) -> tuple:
     """Invert the given move - Used to give the best move away from the best path"""
-
+    
     inverted_move = [0,0]
 
     if move[0] == 1:
@@ -100,7 +53,6 @@ def ReversedAStartMovmentAlgorithm(fox: object, collision_detection: object, can
 
     animals_in_range = fox.animal_move_data.animals_in_range
 
-    
     if animals_in_range == []:
         fox.animal_move_data.animal_next_move = (0,0) # No move
         return
@@ -146,7 +98,7 @@ def ReversedAStartMovmentAlgorithm(fox: object, collision_detection: object, can
 
         # <- No current guard for reccursion depth
 
-        # Taking the path, reverse the fist step , -1 = 1 , 1 = -1 <- option 2
+        # Taking the path, reverse the fist step , -1 = 1 , 1 = -1 
         if current_node == end_node:
             print("Escape move found")
             path = []
@@ -157,11 +109,13 @@ def ReversedAStartMovmentAlgorithm(fox: object, collision_detection: object, can
             
             fox_current_location = fox.animal_move_data.animal_location
             move = ((path[1][0] - fox_current_location[0]), (path[1][1] - fox_current_location[1]))
-            print(f'Worst fox move {move}') 
-            best_move = ReversedAStarMoveInverter(move = move)
-            print(f'Best Move: {best_move}')
+            
+            best_move = []
+            best_move.append(ReversedAStarMoveInverter(move))
+            
+            fox.animal_move_data.animal_next_move = HelperFunctions.RebuildDetermineBestMove(fox_current_location,best_move,collision_detection)
 
-            # <- collision to go here + setting of fox movment variables
+            
 
             break
 
@@ -218,25 +172,3 @@ def ReversedAStartMovmentAlgorithm(fox: object, collision_detection: object, can
                     continue 
 
             open_list.append(current_child)
-                
-
-        
-
-
-
-        
-
-
-
-        
-
-
-
-
-
-
-class FoxMovementAlgoritm(Enum):
-    """Enumerate the Movment Algorithms"""
-    
-    BASIC = BasicMovmentAlgorithm
-    

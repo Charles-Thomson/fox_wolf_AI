@@ -1,7 +1,7 @@
 
-import NewSetUp as setup
-from Animals.Fox import NewFoxAI
-from Animals.Wolf import NewWolfAI
+import SetUp as setup
+from Animals.Fox import FoxMain
+from Animals.Wolf import WolfMain
 
 import tkinter as tk
 
@@ -17,20 +17,21 @@ class main():
         self.run()
         
     def testNewFoxAI(self):
-        NewFoxAI.MainFoxAI(self.foxs, self.wolfs,self.canvas_data)
+        FoxMain.MainFoxAI(self.foxs, self.wolfs,self.canvas_data)
 
     def testNewWolfAI(self):
-        NewWolfAI.MainWolfAI(self.wolfs,self.foxs,self.canvas_data)
+        WolfMain.MainWolfAI(self.wolfs,self.foxs,self.canvas_data)
 
     def run(self) -> None:
-        NewFoxAI.MainFoxAI(self.foxs, self.wolfs,self.canvas_data)
-        NewWolfAI.MainWolfAI(self.wolfs,self.foxs,self.canvas_data)
+        FoxMain.MainFoxAI(self.foxs, self.wolfs,self.canvas_data)
+        WolfMain.MainWolfAI(self.wolfs,self.foxs,self.canvas_data)
         
-        #self.canvas_data.canvas.after(3000,self.run)
+        self.canvas_data.canvas.after(1000,self.run)
 
         #  Do next:  
-        #  Implement Fox reverse A* 
-        # Clean Up file system and Movement alg files 
+        #  Fix the need to pass the move i.e(1,-1) , out of the algorithms or implement a helper function to handle it - lots of dupe code currently
+        # need to make bloacking 
+        
 
 
 if __name__ == "__main__":
