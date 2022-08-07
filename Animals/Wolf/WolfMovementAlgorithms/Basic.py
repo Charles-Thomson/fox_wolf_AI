@@ -1,28 +1,38 @@
-from Animals.SharedFunctunality import HelperFunctions
+from __future__ import annotations
+from typing import TYPE_CHECKING
 
-def BasicMovementAlgorithm(wolf: object ,collision_detection: object, canvas_data: object) -> None: 
+if TYPE_CHECKING:
+    from Animals.SharedFunctionality.CollisionDetection import CollisionDetection
+    from Animals.SharedFunctionality.NewAnimalDataClass import Animal
+    from Board import CanvasData
+
+
+def BasicMovementAlgorithm(
+    wolf: Animal, collision_detection: CollisionDetection, canvas_data: CanvasData
+) -> None:
     """Basic process to determin best move for the animal"""
 
     good_moves = []
-    wolf_coord_X, wolf_coord_Y = wolf.animal_move_data.animal_location
+    wolf_coord_X, wolf_coord_Y = wolf.move_data.animal_location
 
-    for coord_X, coord_Y in wolf.animal_move_data.animals_in_range:
+    for coord_X, coord_Y in wolf.move_data.animals_in_range:
         # +x +y
         if wolf_coord_X >= coord_X and wolf_coord_Y >= coord_Y:
-            good_moves.extend([(-1,-1),(0,-1),(-1,0)])
-            
+            good_moves.extend([(-1, -1), (0, -1), (-1, 0)])
+
         # -x +y
         if wolf_coord_X <= coord_X and wolf_coord_Y >= coord_Y:
-            good_moves.extend([(1,-1),(0,-1),(1,0)])
-            
-        # +y -x 
-        if wolf_coord_X >= coord_X and wolf_coord_Y <= coord_Y:
-            good_moves.extend([(-1,1),(0,1),(-1,0)])
-            
-        # -y -x 
-        if wolf_coord_X <= coord_X and wolf_coord_Y <= coord_Y:
-            good_moves.extend([(1,1),(0,1),(1,0)])
+            good_moves.extend([(1, -1), (0, -1), (1, 0)])
 
-    
+        # +y -x
+        if wolf_coord_X >= coord_X and wolf_coord_Y <= coord_Y:
+            good_moves.extend([(-1, 1), (0, 1), (-1, 0)])
+
+        # -y -x
+        if wolf_coord_X <= coord_X and wolf_coord_Y <= coord_Y:
+            good_moves.extend([(1, 1), (0, 1), (1, 0)])
+
     wolf_current_location = (wolf_coord_X, wolf_coord_Y)
-    wolf.animal_move_data.animal_next_move = HelperFunctions.RebuildDetermineBestMove(wolf_current_location,good_moves,collision_detection) # Need to work it into here!!
+    wolf.move_data.animal_next_move = collision_detection.MoveValidation(
+        wolf_current_location, good_moves
+    )

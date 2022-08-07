@@ -7,32 +7,50 @@
 
 
     To do:
-        1. Create the basic alg 
-        2. Set the values for each node around the fox 
+        1. Create the basic alg
+        2. Set the values for each node around the fox
         3. Add in the additional values for multiple paths(wolfs)
 
 """
+from __future__ import annotations
+from typing import TYPE_CHECKING
 
-from Animals.SharedFunctunality import HelperFunctions
+
+if TYPE_CHECKING:
+    from Animals.SharedFunctionality.CollisionDetection import CollisionDetection
+    from Board import CanvasData
+    from Animals.SharedFunctionality.NewAnimalDataClass import Animal
+
 
 class ChildNode:
-    """Custom node class - used for the children of the Fox location node """
+    """Custom node class - used for the children of the Fox location node"""
 
-    def __init__(self,location: tuple, adjacent_location: tuple ):
-        self.location = location 
+    def __init__(self, location: tuple, adjacent_location: tuple):
+        self.location = location
         self.adjacent_location = adjacent_location
 
         self.value = 0
 
 
-def Algorithm(fox: object, collision_detection: object, canvas_data: object) -> None:
-    """Find the value of each node around the Fox based on each nodes distance from a wolf"""
+def Algorithm(
+    fox: Animal, collision_detection: CollisionDetection, canvas_data: CanvasData
+) -> None:
+    """Find nodes ajacent to fox value - value = distance from preditors"""
 
-    preditor_locations = fox.animal_move_data.animals_in_range
-    fox_location = fox.animal_move_data.animal_location
-    
+    preditor_locations = fox.move_data.animals_in_range
+    fox_location = fox.move_data.animal_location
+
     adjacent_nodes = []
-    adjacent_locations = [(1,1),(1,0),(1,-1),(0,-1),(-1,0),(-1,-1),(-1,1),(0,1)]
+    adjacent_locations = [
+        (1, 1),
+        (1, 0),
+        (1, -1),
+        (0, -1),
+        (-1, 0),
+        (-1, -1),
+        (-1, 1),
+        (0, 1),
+    ]
 
     # Create the nodes
     for adjacent_location in adjacent_locations:
@@ -48,30 +66,23 @@ def Algorithm(fox: object, collision_detection: object, canvas_data: object) -> 
             distance_from_node_x = abs(node.location[0] - preditor_location[0])
             distance_from_node_y = abs(node.location[1] - preditor_location[1])
 
-            distance_value = max(distance_from_node_x,distance_from_node_y)
+            distance_value = max(distance_from_node_x, distance_from_node_y)
 
             value += distance_value
-        
+
         node.value = value
 
     # No move in nothing in range
     if preditor_locations == []:
-        fox.animal_move_data.animal_next_move = (0,0) 
+        fox.move_data.animal_next_move = (0, 0)
         return
 
+    adjacent_nodes.sort(key=lambda x: x.value, reverse=True)
 
-    adjacent_nodes.sort(key= lambda x: x.value, reverse=True )
-
-    good_node_moves = adjacent_nodes # Taking the 3 'best' moves <- testing passing all 
+    good_node_moves = adjacent_nodes  # Taking the 3 'best' moves
 
     good_moves = [node.adjacent_location for node in good_node_moves]
-    
-    fox.animal_move_data.animal_next_move = HelperFunctions.RebuildDetermineBestMove(fox_location,good_moves, collision_detection)
 
-
-
-
-
-
-
-
+    fox.move_data.animal_next_move = collision_detection.MoveValidation(
+        fox_location, good_moves
+    )
