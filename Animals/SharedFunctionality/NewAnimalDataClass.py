@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import Protocol
+from typing import Protocol, Union
 
 from Animals.Wolf.WolfMovementAlgorithms import Basic as WolfBasic
 from Animals.Wolf.WolfMovementAlgorithms import AStar_Full
@@ -65,7 +65,7 @@ class Wolf:
 
     core_data: AnimalCoreData
     move_data: AnimalMoveData
-    animal_movement_algorithm: WolfMovementAlgorithm
+    animal_movement_algorithm: Union[FoxMovementAlgorithm, WolfMovementAlgorithm]
 
 
 @dataclass
@@ -74,7 +74,7 @@ class Fox:
 
     core_data: AnimalCoreData
     move_data: AnimalMoveData
-    animal_movement_algorithm: FoxMovementAlgorithm
+    animal_movement_algorithm: Union[FoxMovementAlgorithm, WolfMovementAlgorithm]
 
 
 def SpawnAnimal(
@@ -82,6 +82,7 @@ def SpawnAnimal(
     animal_location: tuple,
     animal_sight_range: int,
     animal_draw_colour: str,
+    animal_movement_algorithm: Union[FoxMovementAlgorithm, WolfMovementAlgorithm],
 ) -> Animal:
     if animal_type == animal_type.FOX:
         return Fox(
@@ -93,7 +94,7 @@ def SpawnAnimal(
                 animal_draw_colour,
             ),
             move_data=AnimalMoveData(),
-            animal_movement_algorithm=FoxMovementAlgorithm.ASTARR,
+            animal_movement_algorithm=animal_movement_algorithm,
         )
 
     if animal_type == animal_type.WOLF:
@@ -106,14 +107,5 @@ def SpawnAnimal(
                 animal_draw_colour,
             ),
             move_data=AnimalMoveData(),
-            animal_movement_algorithm=WolfMovementAlgorithm.ASTAR,
+            animal_movement_algorithm=animal_movement_algorithm,
         )
-
-
-def Main() -> None:
-    test_animal = SpawnAnimal(AnimalType.FOX, (7, 7), 4, "blue")
-    print(test_animal)
-
-
-if __name__ == "__main__":
-    Main()

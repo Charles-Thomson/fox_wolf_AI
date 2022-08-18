@@ -1,0 +1,53 @@
+"""
+Data in format of:
+-------------------------
+**ANIMAL**
+animal_type= str
+animal_location=(x,y)
+animal_sight_range= int
+animal_movement_alg = str
+-------------------------
+
+Available Animal Types:
+    Prey
+        - FOX
+        Movment Algorithms:
+            - FOX.BASIC
+            - FOX.ASTAR
+            - FOX.ASTARR
+
+
+    Preditor
+        - WOLF
+        Movment Algorithms:
+            - WOLF.BASIC
+            - WOLF.ASTAR
+"""
+
+**ANIMAL**,
+animal_type="FOX"
+animal_location=(4,4)
+animal_sight_range=4
+animal_movement_alg="FOX.BASIC"
+animal_draw_colour="blue"
+
+**ANIMAL**,
+animal_type="FOX"
+animal_location=(5,5)
+animal_sight_range=4
+animal_movement_alg="FOX.BASIC"
+animal_draw_colour="blue"
+
+**ANIMAL**,
+animal_type="DOG"
+animal_location=(4,4)
+animal_sight_range=4
+animal_movement_alg="BASIC"
+animal_draw_colour="blue"
+
+**ANIMAL**,
+animal_type="WOLF"
+animal_location=(7,7)
+animal_sight_range=4
+animal_movement_alg="WOLF.BASIC"
+animal_draw_colour="red"

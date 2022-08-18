@@ -1,7 +1,9 @@
 {
     "python.analysis.extraPaths": [
         "./AI's",
-        "./AI"
+        "./AI",
+        "./Animals",
+        "./Animals/SharedFunctionality"
     ],
     "python.linting.enabled": true,
     "python.linting.flake8Enabled": true,
