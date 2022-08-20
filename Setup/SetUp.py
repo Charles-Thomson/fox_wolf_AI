@@ -1,8 +1,8 @@
 from tkinter import Canvas
-from Animals.SharedFunctionality import HelperFunctions
-import Animals.SharedFunctionality.NewAnimalDataClass as NewAnimalDataClass
-from Animals.SharedFunctionality.NewAnimalDataClass import Animal
-import Board
+from HelperFunctions import HelperFunctions
+import Animals.NewAnimalDataClass as NewAnimalDataClass
+from Animals.NewAnimalDataClass import Animal
+import GUI.Board as Board
 from Setup import DataRead
 from Setup.DataRead import AnimalSpawnData
 

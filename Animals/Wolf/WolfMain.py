@@ -1,7 +1,7 @@
-from Animals.SharedFunctionality import HelperFunctions
-from Animals.SharedFunctionality import CollisionDetection
-from Animals.SharedFunctionality.NewAnimalDataClass import Animal
-from Board import CanvasData
+from HelperFunctions import HelperFunctions
+from CollisionDetection import CollisionDetection
+from Animals.NewAnimalDataClass import Animal
+from GUI.Board import CanvasData
 
 
 def MainWolfAI(

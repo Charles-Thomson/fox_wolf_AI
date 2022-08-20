@@ -17,9 +17,9 @@ from typing import TYPE_CHECKING
 
 
 if TYPE_CHECKING:
-    from Animals.SharedFunctionality.CollisionDetection import CollisionDetection
-    from Board import CanvasData
-    from Animals.SharedFunctionality.NewAnimalDataClass import Animal
+    from CollisionDetection.CollisionDetection import CollisionDetection
+    from GUI.Board import CanvasData
+    from Animals.NewAnimalDataClass import Animal
 
 
 class ChildNode:

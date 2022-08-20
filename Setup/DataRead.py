@@ -9,12 +9,12 @@ from dataclasses import dataclass
 from ast import literal_eval
 from typing import Union
 
-from Animals.SharedFunctionality.NewAnimalDataClass import (
+from Animals.NewAnimalDataClass import (
     FoxMovementAlgorithm,
     WolfMovementAlgorithm,
 )
 
-
+# Check if this is needed in connection with the setup spawning of animals
 @dataclass
 class AnimalSpawnData:
     """Spawn Data of each Animal"""

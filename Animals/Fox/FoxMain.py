@@ -1,7 +1,7 @@
-from Animals.SharedFunctionality import HelperFunctions
-from Animals.SharedFunctionality import CollisionDetection
-from Animals.SharedFunctionality.NewAnimalDataClass import Animal
-from Board import CanvasData
+from HelperFunctions import HelperFunctions
+from CollisionDetection import CollisionDetection
+from Animals.NewAnimalDataClass import Animal
+from GUI.Board import CanvasData
 
 
 def MainFoxAI(foxs: list[Animal], wolfs: list[Animal], canvas_data: CanvasData) -> None:
@@ -14,19 +14,6 @@ def MainFoxAI(foxs: list[Animal], wolfs: list[Animal], canvas_data: CanvasData) 
         print(fox)
         HelperFunctions.SetAnimalMovingTo(fox)
         HelperFunctions.MoveAnimal(fox, canvas_data)
-        FoxAlive(fox, foxs, wolfs, canvas_data)
+        HelperFunctions.CheckPreyAlive(foxs, wolfs, canvas_data)
+        HelperFunctions.IncrementPreyScore(fox)
         HelperFunctions.UpdateAnimalData(fox)
-
-
-# Needs refactoring
-def FoxAlive(
-    fox: Animal, foxs: list[Animal], wolfs: list[Animal], canvas_data: CanvasData
-) -> None:
-    """Check if the fox has been eatten"""
-
-    for fox in foxs:
-        for wolf in wolfs:
-            if wolf.move_data.animal_location == fox.move_data.animal_location:
-                print("Fox dead")
-                foxs.remove(fox)
-                canvas_data.canvas.delete(fox.core_data.animal_ID)

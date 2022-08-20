@@ -2,9 +2,9 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from Animals.SharedFunctionality.CollisionDetection import CollisionDetection
-    from Animals.SharedFunctionality.NewAnimalDataClass import Animal
-    from Board import CanvasData
+    from CollisionDetection.CollisionDetection import CollisionDetection
+    from Animals.NewAnimalDataClass import Animal
+    from GUI.Board import CanvasData
 
 
 def BasicMovementAlgorithm(

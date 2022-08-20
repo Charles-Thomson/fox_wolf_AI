@@ -13,24 +13,24 @@ class MainProcess:
         self.canvas_data, self.foxs, self.wolfs = setup.main(
             self.node_size, self.board_height, self.board_width
         )
-        # self.run()
+        self.run()
 
     def run(self) -> None:
         FoxMain.MainFoxAI(self.foxs, self.wolfs, self.canvas_data)
         WolfMain.MainWolfAI(self.wolfs, self.foxs, self.canvas_data)
 
+        if not self.foxs:
+            print("All Prey Dead")
+
         self.canvas_data.canvas.after(1000, self.run)
 
         #  Do next:
-        # Look through and refactor where needed
-        # Start looking into a DB <-- not a fun time
+        # Clean up th movement process
+        # -> Go through all the movement algs and make them follow a Abstract with set return type
 
         # Odd Union in the newanialDataclass file due to typeing/unions
         # Not a good long term plan ?
         # Addres line length issue
-        #
-        # Re organise File Structure
-        # Check for bugs fo eatting of wolf
 
 
 if __name__ == "__main__":

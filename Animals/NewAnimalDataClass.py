@@ -2,12 +2,12 @@ from dataclasses import dataclass, field
 from enum import Enum
 from typing import Protocol, Union
 
-from Animals.Wolf.WolfMovementAlgorithms import Basic as WolfBasic
-from Animals.Wolf.WolfMovementAlgorithms import AStar_Full
+from MovmentAlgorithms.PreditorAlgorithms import Basic as WolfBasic
+from MovmentAlgorithms.PreditorAlgorithms import AStar_Full
 
-from Animals.Fox.FoxMovementAlgorithms import Basic as FoxBasic
-from Animals.Fox.FoxMovementAlgorithms import AStar_MoveReversed
-from Animals.Fox.FoxMovementAlgorithms import AStar_Refined
+from MovmentAlgorithms.PreyAlgorithms import Basic as FoxBasic
+from MovmentAlgorithms.PreyAlgorithms import AStar_MoveReversed
+from MovmentAlgorithms.PreyAlgorithms import AStar_Refined
 
 
 class AnimalType(Enum):
@@ -57,6 +57,7 @@ class Animal(Protocol):
     core_data: ...
     move_data: ...
     animal_movement_algorithm: ...
+    animal_score: ...
 
 
 @dataclass
@@ -66,6 +67,7 @@ class Wolf:
     core_data: AnimalCoreData
     move_data: AnimalMoveData
     animal_movement_algorithm: Union[FoxMovementAlgorithm, WolfMovementAlgorithm]
+    animal_score: int
 
 
 @dataclass
@@ -75,6 +77,7 @@ class Fox:
     core_data: AnimalCoreData
     move_data: AnimalMoveData
     animal_movement_algorithm: Union[FoxMovementAlgorithm, WolfMovementAlgorithm]
+    animal_score: int
 
 
 def SpawnAnimal(
@@ -95,6 +98,7 @@ def SpawnAnimal(
             ),
             move_data=AnimalMoveData(),
             animal_movement_algorithm=animal_movement_algorithm,
+            animal_score=0,
         )
 
     if animal_type == animal_type.WOLF:
@@ -108,4 +112,5 @@ def SpawnAnimal(
             ),
             move_data=AnimalMoveData(),
             animal_movement_algorithm=animal_movement_algorithm,
+            animal_score=0,
         )
